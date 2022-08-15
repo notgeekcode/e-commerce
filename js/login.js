@@ -13,6 +13,7 @@ document.getElementById("regBtn").addEventListener("click", function() {
     
     if(campoMail.value == "" || campoPass.value == "") {
         showAlertError();
+        window.location.href = "index.html";
     } else {
         showAlertSuccess();
         window.location.href = "homepage.html";
