@@ -12,8 +12,8 @@ let campoPass = document.getElementById("password1");
 document.getElementById("regBtn").addEventListener("click", function() {
     
     if(campoMail.value == "" || campoPass.value == "") {
-        showAlertError();
-        window.location.href = "index.html";
+        alert("Ingrese los datos nuevamente");
+        
     } else {
         showAlertSuccess();
         window.location.href = "homepage.html";
