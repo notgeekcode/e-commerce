@@ -23,8 +23,9 @@ function showCategoriesList(array){
             </div>
         </div>
         `
-        document.getElementById("autos101").innerHTML = htmlContentToAppend;
+        document.getElementById("productos-bold").innerHTML = htmlContentToAppend;
     }
+    document.getElementById("nombre-categorias-bold").innerHTML = `${array.catName}`; //mostramos el nombre de la categoria en pantalla a traves del identificador "nombre-categorias-bold"
 }
  //utilizamos dom para acceder al nodo con identificador "autos101" y agregarle contenido al HTML a traves del JSON
  //El simbolo de ${} hace que el contenido sea un objeto de JS el cual estara dentro del HTML
@@ -37,9 +38,13 @@ EJECUCIÓN:
 -Por último, se llama a showCategoriesList() pasándole por parámetro categoriesArray.
  
 */
- 
+
+let getDatos = JSON.parse(localStorage.getItem("catID")??[]);
+JSON.stringify(getDatos);
+let setCat = `https://japceibal.github.io/emercado-api/cats_products/${getDatos}.json`;
+
 document.addEventListener("DOMContentLoaded", ()=>{ //Cuando el documento se carga en la pagina, se executa la funcion flecha.
-    getJSONData(PRODUCT_AUTO).then(function(resultObj){ //traigo al json en forma de objeto js y despues cree una funcion que tenga como parametro el objeto recibido
+    getJSONData(setCat).then(function(resultObj){ //traigo al json en forma de objeto js y despues cree una funcion que tenga como parametro el objeto recibido
         if (resultObj.status === "ok") //si el resultado es estrictamente igual a ok (status = comprobante si los datos fueron traidos)
         {
             categoriesArray = resultObj.data; //actualizo la variable global como variable local y el objeto.data serian los datos del objeto que traje
