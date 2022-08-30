@@ -23,7 +23,7 @@ function showCategoriesList(array){
             </div>
         </div>
         `
-        document.getElementById("productos-bold").innerHTML = htmlContentToAppend;
+        document.getElementById("productos").innerHTML = htmlContentToAppend;
     }
     document.getElementById("nombre-categorias-bold").innerHTML = `${array.catName}`; //mostramos el nombre de la categoria en pantalla a traves del identificador "nombre-categorias-bold"
 }
