@@ -14,7 +14,7 @@ function showCategoriesList(){
         <h1>
     </div>
     <div>
-        <p><strong>Precio</strong><br> UYU ${currentCategoriesArray.cost}</p>
+        <p><strong>Precio</strong><br>  ${currentCategoriesArray.currency} ${currentCategoriesArray.cost}</p>
     </div>
     <div>
         <p><strong>Descripción</strong><br> ${currentCategoriesArray.description}</p>
@@ -58,7 +58,7 @@ document.getElementById("product-name").innerHTML = showCategoriesList();
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
     localStorage.setItem("catID", id);
-    window.location = "product-info.html" //redirecciona a product-info.html
+    window.location = "categories.html" //redirecciona a product-info.html
 }
 
 document.addEventListener("DOMContentLoaded", function(){

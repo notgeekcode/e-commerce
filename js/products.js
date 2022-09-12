@@ -90,11 +90,11 @@ let getDatos = JSON.parse(localStorage.getItem("catID")??[]); //Asigno a la vari
 JSON.stringify(getDatos); //Ahora tranformo el contenido de getDatos en string
 let setCat = `https://japceibal.github.io/emercado-api/cats_products/${getDatos}.json`;
 //por ultimo asigno a la variable setCat la direccion de los json a trabajar con la variable incluida de getDatos.
-
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(){
+    
     getJSONData(setCat).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
