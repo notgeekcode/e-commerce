@@ -1,5 +1,5 @@
 let currentCategoriesArray = []; //asignamos un array vacio.
-let getDatos = JSON.parse(localStorage.getItem("catID")??[]);
+let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con diferente key //
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
 
@@ -32,8 +32,7 @@ function showCategoriesList(){
     </div>`;
     document.getElementById("product-name").innerHTML = htmlContentToAppend;
 }
-
-function showimgs() {
+function showimgs() {         //DEBO MEJORAR CON UN FOR <----
     let htmlContentToAppend = "";
     htmlContentToAppend = `
     <div class="row">
@@ -57,7 +56,7 @@ function showimgs() {
 document.getElementById("product-name").innerHTML = showCategoriesList();
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
-    localStorage.setItem("catID", id);
+    localStorage.setItem("catID1", id); //Diferente seteo //
     window.location = "categories.html" //redirecciona a product-info.html
 }
 

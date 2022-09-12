@@ -68,7 +68,7 @@ function sortCategories(criteria, array){ //funcion que ordena las categorias se
 }
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
-    localStorage.setItem("catID", id);
+    localStorage.setItem("catID1", id);
     window.location = "product-info.html" //redirecciona a product-info.html
 }
 
