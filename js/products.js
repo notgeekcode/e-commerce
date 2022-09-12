@@ -69,7 +69,7 @@ function sortCategories(criteria, array){ //funcion que ordena las categorias se
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
     localStorage.setItem("catID", id);
-    window.location = "products.html" // Luego redirecciona a products.html
+    window.location = "product-info.html" //redirecciona a product-info.html
 }
 
 function sortAndShowCategories(sortCriteria, categoriesArray){ //ordenamos segun criterio al array por parametro
