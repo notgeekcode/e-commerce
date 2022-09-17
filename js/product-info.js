@@ -60,12 +60,25 @@ function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y
     window.location = "categories.html" //redirecciona a product-info.html
 }
 
+
+function showComments() {
+    let htmlContentToAppend = "";
+    htmlContentToAppend = `
+    <div>
+        <br><br><h4>Comentarios</h4>
+    <div>`
+
+    document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+} 
+
+
 document.addEventListener("DOMContentLoaded", function(){
     getJSONData(setCat).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
             showCategoriesList();
             showimgs();
+            showComments();
         }else{
             alert("Algo salió mal: " + resultObj.data);
         }
