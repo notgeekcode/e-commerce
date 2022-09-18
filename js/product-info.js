@@ -44,7 +44,7 @@ function showimgs() {
     for(let i = 0; i<currentCategoriesArray.images.length; i++){
     htmlContentToAppend += `
         <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
-        ` 
+        <br>` 
     } 
      
     document.getElementById("contenedor-imagen").innerHTML = htmlContentToAppend;
