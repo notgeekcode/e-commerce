@@ -38,15 +38,34 @@
     </div>
   </nav>
   <main>
+
     <div class="container">
       <div id="product-name">
         <div id="img-container"></div>
       </div>
-      <div class="container">
-        <div id="comentarios"></div>
-        <div id="resenias"></div>
+      <h2 class="text-center"><br>Comentarios:</h2><br>
+      <div id="comentarios">
       </div>
+      <hr>
     </div>
+    <div class="container">
+      <h5 class="text-center"><strong>Comentar:</strong></h5>
+      <hr>
+      <div class="mb-3">
+        <textarea class="form-control" rows="3" placeholder="Escribe aquí tu opinión"></textarea>
+      </div>
+      <div>
+        <select class="form-select" aria-label="Default select example">
+          <option selected disabled>Click aquí para seleccionar puntuación</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="3">4</option>
+          <option value="3">5</option>
+        </select>
+        <br>
+        <div><button type="button" class="btn btn-primary">Enviar</button></div>
+      </div>
     </div>
   </main>
   <footer class="text-muted">

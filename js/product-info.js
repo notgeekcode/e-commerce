@@ -2,10 +2,14 @@ let currentCategoriesArray = []; //asignamos un array vacio.
 let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con diferente key //
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
+
+//setComents es asignado a la url del JSON consultado. En este caso los comentarios de los productos
 let setComments = `https://japceibal.github.io/emercado-api/products_comments/${getDatos}.json`
 let currentComments = [];
+
+
+//funcion que dibuja en pantalla diferentes atributos del array currentCategoriesArray.
 function showCategoriesList(){ 
-    
     let htmlContentToAppend = "";
     htmlContentToAppend = `
     <div>
@@ -33,28 +37,19 @@ function showCategoriesList(){
     </div>`;
     document.getElementById("product-name").innerHTML = htmlContentToAppend;
 }
-function showimgs() {         //DEBO MEJORAR CON UN FOR <----
+
+//function que itera sobre el array de images del JSON y las muestra en pantalla.
+function showimgs() { 
     let htmlContentToAppend = "";
-    htmlContentToAppend = `
-    <div class="row">
-        <div class="col-3">
-            <img src="${currentCategoriesArray.images[0]} " alt="${currentCategoriesArray.description}" class="img-thumbnail">
-        </div>
-        <div class="col-3">
-            <img src="${currentCategoriesArray.images[1]} " alt="${currentCategoriesArray.description}" class="img-thumbnail">
-        </div>
-        <div class="col-3">
-            <img src="${currentCategoriesArray.images[2]} " alt="${currentCategoriesArray.description}" class="img-thumbnail">
-        </div>
-        <div class="col-3">
-            <img src="${currentCategoriesArray.images[3]} " alt="${currentCategoriesArray.description}" class="img-thumbnail">
-        </div>
-    </div>
-     `
+    for(let i = 0; i<currentCategoriesArray.images.length; i++){
+    htmlContentToAppend += `
+        <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
+        ` 
+    } 
+     
     document.getElementById("contenedor-imagen").innerHTML = htmlContentToAppend;
 }
 
-document.getElementById("product-name").innerHTML = showCategoriesList();
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
     localStorage.setItem("catID1", id); //Diferente seteo //
@@ -63,200 +58,65 @@ function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y
 
 
 function showComments() {
-    let htmlContentToAppend = "";
-    htmlContentToAppend = `
-    <div>
-        <br><br><h4>Comentarios</h4>
-    </div>
-    <div>
-     <p id="resenias"><strong>${currentComments[0].user}</strong> - ${currentComments[0].dateTime} -  </p>
-    </div>
-    <div>
-        <p>${currentComments[0].description}</p>
-    </div>
-    `
+    let contenido = ""; //en esta variable se va a ver todo(comentarios con usuarios fechas estrellas descrp).
+   
+    for(let i=0; i<currentComments.length; i++){ //iteramos sobre los cometarios que me trae el JSON
+        let htmlContentToAppend = ""; //limpiador
+        let comentarios = currentComments[i]; //cada comentario de cada usuario
+        
+        //dibujamos estrellas
+        for(let i=1; i<6; i++){ //se va a repetir una condicion de 1 a 5 estrellas que es el max de estrellas posibles
+           
+            //Estrellas reseña
+            if(i <= comentarios.score ){
+            htmlContentToAppend += ` 
+            <span class="fa fa-star checked"></span>`
+            }else{ 
+                htmlContentToAppend += ` <span class="fa fa-star"></span>`
+            }
+        } 
+        
+        //dibujamos
+        contenido += `
+            <div class="container shadow p-3 mb-5 bg-body rounded">
+                <div>
+                    <p><strong>${currentComments[i].user}</strong> - ${currentComments[i].dateTime} - ${htmlContentToAppend}
+                    <p>${currentComments[i].description}</p>
+                </div>
+            </div> `
+        
+    }
+    document.getElementById("comentarios").innerHTML = contenido;
     
-    document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    console.log(2)
-} 
-
-
-function comentarios() {
-    
-    getJSONData(setComments).then(function(resultObj){
-        if(resultObj.status === "ok") {
-            currentComments = resultObj.data;
-            showComments();
-            //test();
-            //score();
-            
-        }else{
-            alert("Algo salio mal: " + resultObj.data);
-        }
-    })
 }
 
 
-function test() {
+
+//funcion que llama al fetch  y el objeto resultado es utilizado en la funcion showCommetns();
+function datosComentarios(){
     
     getJSONData(setComments).then(function(resultObj){
         if(resultObj.status === "ok") {
             currentComments = resultObj.data; 
             showComments();
-            score();
         }else{
             alert("Algo salio mal: " + resultObj.data);
         }
     })
 }
 
-
+/*Funcion que cuando carga la pagina, hace un llamado al fetch y el objeto es utilizado en la funcion
+  showCategoriesList();. Luego invoca a las funciones showimgs y datosComentarios(); */
 document.addEventListener("DOMContentLoaded", function(){
     getJSONData(setCat).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
             showCategoriesList();
             showimgs();
-            //comentarios();
-            test();
-            //comentarios();
-           
+            datosComentarios();
         }else{
             alert("Algo salió mal: " + resultObj.data);
         } 
     });
 });
-
-
-
- function score() {
-    console.log(1);
-    //comentarios();
-    let htmlContentToAppend = "";
-    if(currentComments[0].score == 5) {
-        htmlContentToAppend = `
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-         `
-        document.getElementById("resenias").innerHTML += htmlContentToAppend;
-        
-    }else if(currentComments[0].score == 4) {
-        
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <div>
-         `
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[0].score == 3) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <div>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[0].score == 2) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <div>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments.score[0] = 1){
-        return `
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[0].score = 0){
-        return `
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[1].score == 5) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <div>
-         `
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-        
-    }else if(currentComments[1].score == 4) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <div>
-         `
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[1].score == 3) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <div>`
-    }else if(currentComments[1].score == 2) {
-        htmlContentToAppend = "";
-        htmlContentToAppend = `
-        <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <div>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments.score[1] = 1){
-        return `
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }else if(currentComments[1].score = 0){
-        return `
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`
-        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    }
-
-} 
  
