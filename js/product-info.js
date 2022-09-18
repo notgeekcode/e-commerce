@@ -3,7 +3,7 @@ let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con difer
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
 
-//setComents es asignado a la url del JSON consultado. En este caso los comentarios de los productos
+//se le asigna a setComents la url del JSON consultado. En este caso los comentarios de los productos
 let setComments = `https://japceibal.github.io/emercado-api/products_comments/${getDatos}.json`
 let currentComments = [];
 
@@ -58,7 +58,7 @@ function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y
 
 
 function showComments() {
-    let contenido = ""; //en esta variable se va a ver todo(comentarios con usuarios fechas estrellas descrp).
+    let contenido = ""; //en esta variable se va a ver todo(comentarios con usuarios fechas estrellas descripción.).
    
     for(let i=0; i<currentComments.length; i++){ //iteramos sobre los cometarios que me trae el JSON
         let htmlContentToAppend = ""; //limpiador
