@@ -2,7 +2,8 @@ let currentCategoriesArray = []; //asignamos un array vacio.
 let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con diferente key //
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
-
+let setComments = `https://japceibal.github.io/emercado-api/products_comments/${getDatos}.json`
+let currentComments = [];
 function showCategoriesList(){ 
     
     let htmlContentToAppend = "";
@@ -66,10 +67,45 @@ function showComments() {
     htmlContentToAppend = `
     <div>
         <br><br><h4>Comentarios</h4>
-    <div>`
-
+    <div>
+    <div>
+     <p>${currentComments[0].user} + ${currentComments[0].dateTime}</p>
+    </div>
+    <div>
+        <p>${currentComments[0].description}</p>
+    </div>
+    `
+    
     document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    
 } 
+
+
+function comentarios() {
+    
+    getJSONData(setComments).then(function(resultObj){
+        if(resultObj.status === "ok") {
+            currentComments = resultObj.data;
+            showComments();
+            //test();
+        }else{
+            alert("Algo salio mal: " + resultObj.data);
+        }
+    })
+}
+
+
+function test() {
+    
+    getJSONData(setComments).then(function(resultObj){
+        if(resultObj.status === "ok") {
+            currentComments = resultObj.data;
+            score(); 
+        }else{
+            alert("Algo salio mal: " + resultObj.data);
+        }
+    })
+}
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -78,10 +114,147 @@ document.addEventListener("DOMContentLoaded", function(){
             currentCategoriesArray = resultObj.data
             showCategoriesList();
             showimgs();
-            showComments();
+            //comentarios();
+            test();
+           
         }else{
             alert("Algo salió mal: " + resultObj.data);
-        }
+        } 
     });
-      
 });
+
+
+
+ function score() {
+    comentarios();
+    let htmlContentToAppend = "";
+    if(currentComments[0].score == 5) {
+       
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <div>
+         `
+        document.getElementById("resenias").innerHTML = htmlContentToAppend;
+        
+    }else if(currentComments[0].score == 4) {
+        
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <div>
+         `
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[0].score == 3) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <div>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[0].score == 2) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <div>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments.score[0] = 1){
+        return `
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[0].score = 0){
+        return `
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[1].score == 5) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <div>
+         `
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+        
+    }else if(currentComments[1].score == 4) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <div>
+         `
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[1].score == 3) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <div>`
+    }else if(currentComments[1].score == 2) {
+        htmlContentToAppend = "";
+        htmlContentToAppend = `
+        <div>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <div>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments.score[1] = 1){
+        return `
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }else if(currentComments[1].score = 0){
+        return `
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>`
+        document.getElementById("comentarios").innerHTML = htmlContentToAppend;
+    }
+
+} 
+ 
