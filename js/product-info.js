@@ -69,7 +69,7 @@ function showComments() {
         <br><br><h4>Comentarios</h4>
     </div>
     <div>
-     <p><strong>${currentComments[0].user}</strong> - ${currentComments[0].dateTime} -  </p>
+     <p id="resenias"><strong>${currentComments[0].user}</strong> - ${currentComments[0].dateTime} -  </p>
     </div>
     <div>
         <p>${currentComments[0].description}</p>
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function(){
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
          `
-        document.getElementById("resenias").innerHTML = htmlContentToAppend;
+        document.getElementById("resenias").innerHTML += htmlContentToAppend;
         
     }else if(currentComments[0].score == 4) {
         
