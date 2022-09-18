@@ -67,9 +67,9 @@ function showComments() {
     htmlContentToAppend = `
     <div>
         <br><br><h4>Comentarios</h4>
+    </div>
     <div>
-    <div>
-     <p>${currentComments[0].user} + ${currentComments[0].dateTime}</p>
+     <p><strong>${currentComments[0].user}</strong> - ${currentComments[0].dateTime} -  </p>
     </div>
     <div>
         <p>${currentComments[0].description}</p>
@@ -77,7 +77,7 @@ function showComments() {
     `
     
     document.getElementById("comentarios").innerHTML = htmlContentToAppend;
-    
+    console.log(2)
 } 
 
 
@@ -88,6 +88,8 @@ function comentarios() {
             currentComments = resultObj.data;
             showComments();
             //test();
+            //score();
+            
         }else{
             alert("Algo salio mal: " + resultObj.data);
         }
@@ -99,8 +101,9 @@ function test() {
     
     getJSONData(setComments).then(function(resultObj){
         if(resultObj.status === "ok") {
-            currentComments = resultObj.data;
-            score(); 
+            currentComments = resultObj.data; 
+            showComments();
+            score();
         }else{
             alert("Algo salio mal: " + resultObj.data);
         }
@@ -116,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function(){
             showimgs();
             //comentarios();
             test();
+            //comentarios();
            
         }else{
             alert("Algo salió mal: " + resultObj.data);
@@ -126,18 +130,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
  function score() {
-    comentarios();
+    console.log(1);
+    //comentarios();
     let htmlContentToAppend = "";
     if(currentComments[0].score == 5) {
-       
         htmlContentToAppend = `
-        <div>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
-        <div>
          `
         document.getElementById("resenias").innerHTML = htmlContentToAppend;
         
