@@ -13,7 +13,7 @@ function showCategoriesList(){
     let htmlContentToAppend = "";
     htmlContentToAppend = `
     <div>
-        <h1><br>
+        <h1 class="text-center"><br>
             ${currentCategoriesArray.name}
             <br><br><hr>
         <h1>
@@ -31,7 +31,7 @@ function showCategoriesList(){
         <p><strong>Cantidad de vendidos</strong><br> ${currentCategoriesArray.soldCount}</p>
     </div>
     <div>
-        <p><strong>Imágenes ilustrativas</strong></p><br>
+        <p class="text-center h3"><strong>Imágenes ilustrativas</strong></p><br>
     </div>
     <div id="contenedor-imagen">
     </div>`;
@@ -105,6 +105,22 @@ function datosComentarios(){
     })
 }
 
+
+function showRelatedImgs() { 
+   
+    let htmlContentToAppend = "";
+    for(let i = 0; i<currentCategoriesArray.relatedProducts.length; i++){
+    htmlContentToAppend += `
+    <br>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+    <h6 class="text-center p-2 display-6">${currentCategoriesArray.relatedProducts[i].name}<h6>
+    <img src="${currentCategoriesArray.relatedProducts[i].image} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
+    </div>`;  
+    } 
+     
+    document.getElementById("productos-relacionados-div").innerHTML = htmlContentToAppend; 
+}
+
 /*Funcion que cuando carga la pagina, hace un llamado al fetch y el objeto es utilizado en la funcion
   showCategoriesList();. Luego invoca a las funciones showimgs y datosComentarios(); */
 document.addEventListener("DOMContentLoaded", function(){
@@ -114,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function(){
             showCategoriesList();
             showimgs();
             datosComentarios();
+            showRelatedImgs()
         }else{
             alert("Algo salió mal: " + resultObj.data);
         } 

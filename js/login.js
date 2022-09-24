@@ -15,3 +15,7 @@ document.getElementById("regBtn").addEventListener("click", function() {
         window.location.href = "homepage.html";
     }
 })
+
+document.addEventListener("DOMContentLoaded", function() {
+    JSON.parse(localStorage.clear());
+})
