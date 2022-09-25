@@ -43,13 +43,14 @@ function showimgs() {
     let htmlContentToAppend = "";
     for(let i = 0; i<currentCategoriesArray.images.length; i++){
     htmlContentToAppend += `
-        <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
-        <br>` 
+        <div class="shadow p-3 mb-5 bg-body rounded cursor-active">
+            <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-fluid rounded mx-auto d-block">
+            <br>
+        </div>` 
     } 
      
     document.getElementById("contenedor-imagen").innerHTML = htmlContentToAppend;
 }
-
 
 function setCatID(id) { //funcion que setea el localStorage con el key "CatID1, y el valor id"
     localStorage.setItem("catID1", id); //Diferente seteo //
@@ -95,8 +96,6 @@ function showComments() {
     
 }
 
-
-
 //funcion que llama al fetch  y el objeto resultado es utilizado en la funcion showCommetns();
 function datosComentarios(){
     
@@ -110,16 +109,15 @@ function datosComentarios(){
     })
 }
 
-
 function showRelatedImgs() { 
    
     let htmlContentToAppend = "";
     for(let i = 0; i<currentCategoriesArray.relatedProducts.length; i++){
     htmlContentToAppend += `
     <br>
-    <div onclick="setCatID2(${currentCategoriesArray.relatedProducts[i].id})" class="shadow p-3 mb-5 bg-body rounded">
+    <div onclick="setCatID2(${currentCategoriesArray.relatedProducts[i].id})" class="shadow p-3 mb-5 bg-body rounded cursor-active">
     <h6 class="text-center p-2 display-6">${currentCategoriesArray.relatedProducts[i].name}<h6>
-    <img src="${currentCategoriesArray.relatedProducts[i].image} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
+    <img src="${currentCategoriesArray.relatedProducts[i].image} " alt="${currentCategoriesArray.description}" class="img-fluid rounded mx-auto d-block">
     </div>`;  
     } 
      
