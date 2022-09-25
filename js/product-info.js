@@ -51,11 +51,16 @@ function showimgs() {
 }
 
 
-function setCatID(id) { //funcion que setea el localStorage con el key "CatID, y el valor id"
+function setCatID(id) { //funcion que setea el localStorage con el key "CatID1, y el valor id"
     localStorage.setItem("catID1", id); //Diferente seteo //
-    window.location = "categories.html" //redirecciona a product-info.html
+    window.location = "categories.html" //redirecciona a categories.html
 }
 
+function setCatID2(id) { //funcion que setea el localStorage con el key "CatID1, y el valor id"
+    localStorage.setItem("catID1", id); //Diferente seteo //
+
+    window.location = "product-info.html" //redirecciona a product-info.html
+}
 
 function showComments() {
     let contenido = ""; //en esta variable se va a ver todo(comentarios con usuarios fechas estrellas descripción.).
@@ -112,7 +117,7 @@ function showRelatedImgs() {
     for(let i = 0; i<currentCategoriesArray.relatedProducts.length; i++){
     htmlContentToAppend += `
     <br>
-    <div class="shadow p-3 mb-5 bg-body rounded">
+    <div onclick="setCatID2(${currentCategoriesArray.relatedProducts[i].id})" class="shadow p-3 mb-5 bg-body rounded">
     <h6 class="text-center p-2 display-6">${currentCategoriesArray.relatedProducts[i].name}<h6>
     <img src="${currentCategoriesArray.relatedProducts[i].image} " alt="${currentCategoriesArray.description}" class="img-thumbnail img-fluid rounded mx-auto d-block">
     </div>`;  
@@ -122,7 +127,7 @@ function showRelatedImgs() {
 }
 
 /*Funcion que cuando carga la pagina, hace un llamado al fetch y el objeto es utilizado en la funcion
-  showCategoriesList();. Luego invoca a las funciones showimgs y datosComentarios(); */
+  showCategoriesList();. Luego invoca a las funciones showimgs(), datosComentarios() y showRelatedImgs(); */
 document.addEventListener("DOMContentLoaded", function(){
     getJSONData(setCat).then(function(resultObj){
         if (resultObj.status === "ok"){
