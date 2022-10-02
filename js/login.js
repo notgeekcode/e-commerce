@@ -15,7 +15,7 @@ document.getElementById("regBtn").addEventListener("click", function() {
         window.location.href = "homepage.html";
     }
 })
-
+//cuando el usuario este en index.html el localStorage va a limpiarse siempre.
 document.addEventListener("DOMContentLoaded", function() {
     JSON.parse(localStorage.clear());
 })

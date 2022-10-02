@@ -43,7 +43,7 @@ function showimgs() {
     let htmlContentToAppend = "";
     for(let i = 0; i<currentCategoriesArray.images.length; i++){
     htmlContentToAppend += `
-        <div class="shadow p-3 mb-5 bg-body rounded cursor-active">
+        <div class="shadow p-3 mb-5 bg-body rounded">
             <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-fluid rounded mx-auto d-block">
             <br>
         </div>` 
@@ -58,7 +58,7 @@ function setCatID(id) { //funcion que setea el localStorage con el key "CatID1, 
 }
 
 function setCatID2(id) { //funcion que setea el localStorage con el key "CatID1, y el valor id"
-    localStorage.setItem("catID1", id); //Diferente seteo //
+    localStorage.setItem("catID1", id); 
 
     window.location = "product-info.html" //redirecciona a product-info.html
 }
