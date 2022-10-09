@@ -15,7 +15,13 @@ document.getElementById("regBtn").addEventListener("click", function() {
         window.location.href = "homepage.html";
     }
 })
+
+function usuarioPrueba() {
+    localStorage.setItem("usuarioPrueba", 25801);
+}
+
 //cuando el usuario este en index.html el localStorage va a limpiarse siempre.
 document.addEventListener("DOMContentLoaded", function() {
-    JSON.parse(localStorage.clear());
+    localStorage.clear();
+    usuarioPrueba();
 })
