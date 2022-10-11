@@ -16,12 +16,7 @@ document.getElementById("regBtn").addEventListener("click", function() {
     }
 })
 
-function usuarioPrueba() {
-    localStorage.setItem("usuarioPrueba", 25801);
-}
-
 //cuando el usuario este en index.html el localStorage va a limpiarse siempre.
 document.addEventListener("DOMContentLoaded", function() {
     localStorage.clear();
-    usuarioPrueba();
 })
