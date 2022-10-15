@@ -4,16 +4,19 @@ let htmlContentToAppend;
 let productoPreCargado="https://japceibal.github.io/emercado-api/user_cart/25801" + EXT_TYPE;
 let inputCartValue = 1;
 
+
 function cantProductosCarrito(){
-    document.getElementById("cartInputValue").addEventListener("change", function() {
-        let test = document.getElementById("cartInputValue").value;
-        inputCartValue = test;
-        alert(inputCartValue);
-    })
+     document.getElementById("cartInputValue").addEventListener("input", function() {
+     inputCartValue = document.getElementById("cartInputValue").value;
+     if(inputCartValue < 0) {
+       document.getElementById("cartInputValue").value = 0;
+     }else {
+        dibujarProducto();
+     }
+    });
 }
 
 function dibujarProducto() {
-    
     htmlContentToAppend = `
     <div class="container">
         <div class="container mt-5"> 
@@ -41,7 +44,7 @@ function dibujarProducto() {
                 <strong>Subtotal</strong>
             </div>
         </div>
-    </div>
+    </div> 
 
     <div class="container text-center">
         <div class="row">
@@ -53,13 +56,13 @@ function dibujarProducto() {
                  <hr><br>${productoObj.articles[0].name}
              </div>
             <div class="col">
-                <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}           
+                <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}        
             </div>
             <div class="col">
-                <hr><br><input id="cartInputValue" class="form-control placeholder="0" type="numer" value=1 pattern="^[0-9]*$">              
+                <hr><br><input id="cartInputValue" class="form-control placeholder="0" type="number" value=${inputCartValue}>              
             </div>
             <div class="col">
-                <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${productoObj.articles[0].unitCost * inputCartValue}</strong>
+                <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${(productoObj.articles[0].unitCost * inputCartValue)}</strong>
             </div>
         </div>    
         <hr>
@@ -96,8 +99,9 @@ function dibujarProducto() {
         </div>
     </div>
     `;
-    
+
     document.getElementById("productCart").innerHTML = htmlContentToAppend;
+    cantProductosCarrito();
 }
 
 function productoPreCargadoObj(){
@@ -106,94 +110,13 @@ function productoPreCargadoObj(){
         if(resultObj.status === "ok") {
             productoObj = resultObj.data;
             dibujarProducto();
-            cantProductosCarrito();/*testear*/
         }else{
             alert("Algo salio mal: " + resultObj.data);
-        }
+        } 
     })
 }
 
 
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
-})
-
-
-
-
-
-
-
-
-
-
-/*
-let productoObj;
-let htmlContentToAppend;
-let productoPreCargado="https://japceibal.github.io/emercado-api/user_cart/25801" + EXT_TYPE;
-    
-
-
-function dibujarProducto() {
-    
-    htmlContentToAppend = `
-    <div class="container">
-        <div class="container mt-5"> 
-            <h1 class="display-5 text-center"> Carrito de compras</h1>
-        </div>
-        <div class="container mt-5">
-            <h4 class="display-7 text-center">Artículos a comprar</h4>
-        </div>
-        <div class="container text-center mt-4">
-            <div class="row">
-                <div class="col">
-                <br><hr>
-                    <img src="${productoObj.articles[0].image}" alt="${productoObj.articles[0].name}" id="miniatura" class="img-fluid float-start">            
-                </div>
-                <div class="col">
-                    <strong>Nombre</strong>
-                    <hr><br>${productoObj.articles[0].name}
-                </div>
-                <div class="col">
-                    <strong>Costo</strong>
-                    <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}           
-                </div>
-                <div class="col">
-                    <strong>Cantidad</strong>
-                    <hr><br><input class="form-control type="text" placeholder="0">              
-                </div>
-                <div class="col">
-                    <strong>Subtotal</strong>
-                    <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${productoObj.articles[0].unitCost}</strong>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-    `;
-
-    document.getElementById("productCart").innerHTML = htmlContentToAppend;
-}
-
-
-
-
-
-function productoPreCargadoObj(){
-    
-    getJSONData(productoPreCargado).then(function(resultObj){
-        if(resultObj.status === "ok") {
-            productoObj = resultObj.data; 
-                
-            dibujarProducto();
-        }else{
-            alert("Algo salio mal: " + resultObj.data);
-        }
-    })
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    productoPreCargadoObj();
-    dibujarProducto();
-
-})*/
+});
