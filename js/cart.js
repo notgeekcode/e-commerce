@@ -9,7 +9,7 @@ let inputCodSeguridad;
 let inputIDvencimiento;
 let formaPagoTarjetaCredito;
 
-
+ 
 function cantProductosCarrito(){
      document.getElementById("cartInputValue").addEventListener("input", function() {
      inputCartValue = document.getElementById("cartInputValue").value;
@@ -64,7 +64,7 @@ function dibujarProducto() {
                 <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}        
             </div>
             <div class="col">
-                <hr><br><input id="cartInputValue" class="form-control placeholder="0" type="number" value=${inputCartValue}>              
+                <hr><br><input id="cartInputValue" class="form-control" placeholder="0" type="number" value=${inputCartValue}>              
             </div>
             <div class="col">
                 <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${(productoObj.articles[0].unitCost * inputCartValue)}</strong>
@@ -277,8 +277,8 @@ function dibujarProducto() {
     document.getElementById("productCart").innerHTML = htmlContentToAppend;
     cantProductosCarrito();
        // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
+    (function () {
+        'use strict'
   
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll('.needs-validation')
@@ -295,6 +295,11 @@ function dibujarProducto() {
           form.classList.add('was-validated')
         }, false)
       })
+      
+      /*al cambiar la cantidad de productos se le pide al usuario ingresar
+       nuevamente su método de pago y éste puede ser visualizado de manera correcta*/
+      setOFF_TransferBancaria(); 
+      setOFF_TarjetaCredito();
   })()
 
 }
