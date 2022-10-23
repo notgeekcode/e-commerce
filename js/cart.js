@@ -7,16 +7,17 @@ let numeroCuentaID;
 let inputNroTarjeta;
 let inputCodSeguridad;
 let inputIDvencimiento;
+let formaPagoTarjetaCredito;
 
 
 function cantProductosCarrito(){
      document.getElementById("cartInputValue").addEventListener("input", function() {
      inputCartValue = document.getElementById("cartInputValue").value;
-     if(inputCartValue <= 0) {
-       document.getElementById("cartInputValue").value = 1; //cantidad de productos no sea menor a 0.
-     }else {
+     if(inputCartValue < 0) {
+       document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
+    }else {
         dibujarProducto(); //actualizar el subtotal
-     }
+    }
     });
 }
 
@@ -109,7 +110,7 @@ function dibujarProducto() {
                 <input class="form-control w-50 mt-2" type="text" required>
                 <div class="invalid-feedback">
                     Ingrese una Esquina.
-                </div>
+                </div><br>
             </div>
         
 
@@ -133,89 +134,86 @@ function dibujarProducto() {
                         <p class="text-end">Aqui va Total <strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
                     </li>
                 </ul>
-            </div>
-        
-            <br><hr>
-
-            <div class="container mt-4">
-                <h4>Forma de pago</h4>
-                <p class="mt-4">No ha seleccionado</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Seleccionar forma de pago
-                </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Forma de pago</strong></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-check ms-4">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTarjetaCredito" required>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Tarjeta de crédito
-                                    </label>
+                <br></div><hr>
+                <div class="container mt-4">
+                    <h4>Forma de pago</h4>
+                    <p class="mt-4" id="validarMetodoDePago">No ha seleccionado</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Seleccionar forma de pago
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Forma de pago</strong></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="container"><hr>
-                                    <div class="row">
-                                        <div class="col">
-                                            Número de tarjeta
-                                        </div>
-                                        <div class="col">
-                                            Código de seguridad
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input id="inputNroTarjeta" class="form-control mt-2" type="text" required>
-                                        </div>
-                                        <div class="col">
-                                            <input id="inputCodSeguridad" class="form-control mt-2" type="text" required>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3">
-                                        Vencimiento (MM/AA)
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control w-50 mt-2" type="text" id="inputIDvencimiento" required>
-                                    </div>
-                                    <div class="form-check mt-3">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTransferBancaria">
+                                <div class="modal-body">
+                                    <div class="form-check ms-4">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTarjetaCredito" required>
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                            Transferencia bancaria
+                                            Tarjeta de crédito
                                         </label>
-                                    </div><hr>
-                                    <div>
-                                        Número de cuenta
-                                    </div> 
-                                    <div>      
-                                        <input id="numeroCuentaID" class="form-control w-50 mt-2" type="text" required>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                                    <div class="container"><hr>
+                                        <div class="row">
+                                            <div class="col">
+                                                Número de tarjeta
+                                            </div>
+                                            <div class="col">
+                                                Código de seguridad
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input id="inputNroTarjeta" class="form-control mt-2" type="text" required>
+                                            </div>
+                                            <div class="col">
+                                                <input id="inputCodSeguridad" class="form-control mt-2" type="text" required>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            Vencimiento (MM/AA)
+                                        </div>
+                                        <div class="col">
+                                            <input class="form-control w-50 mt-2" type="text" id="inputIDvencimiento" required>
+                                        </div>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTransferBancaria">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Transferencia bancaria
+                                            </label>
+                                        </div><hr>
+                                        <div>
+                                            Número de cuenta
+                                        </div> 
+                                        <div>      
+                                            <input id="numeroCuentaID" class="form-control w-50 mt-2" type="text" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <div>
+                    <button class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
                 </div>
-            <div>
-                <button class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
 
 
 
 
 
-    <br><br><br><br>
-    <div class="container">
-    <main>
+        <br><br><br><br>
+        <div class="container">
+            <main>
 
       <form action="#" method="get" class="row mt-4 needs-validation" novalidate>
         <div class="col">
@@ -326,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function setOFF_TransferBancaria() {
 document.getElementById("flexRadioTarjetaCredito").addEventListener("click", function() {
     
-    //Desabilitamos numero de cuenta dentro del modal
+    //Desabilitamos Número de cuenta dentro del modal
     numeroCuentaID = document.getElementById("numeroCuentaID");
     numeroCuentaID.setAttribute("disabled", "");
 
@@ -343,8 +341,8 @@ document.getElementById("flexRadioTarjetaCredito").addEventListener("click", fun
     //Limpiamos el contenido
     numeroCuentaID.value = "";
 
-
-
+    //Mostramos lo que el usuario selecciono como método de pago
+    document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><strong>Tarjeta de crédito.</strong></p>`;
 
 });}
 
@@ -370,4 +368,9 @@ function setOFF_TarjetaCredito() {
         inputNroTarjeta.value = "";
         inputCodSeguridad.value = "";
         inputIDvencimiento.value = ""; 
+
+        //Mostramos lo que el usuario selecciono como método de pago
+        document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><strong>Transferencia Bancaria.</strong></p>`;
     });}
+
+

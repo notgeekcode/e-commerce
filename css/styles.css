@@ -195,3 +195,7 @@ a.custom-card:hover {
   padding: 5px;
   width: 150px;
 }
+
+.forma-pago {
+  color: rgb(245, 0, 0);
+}
