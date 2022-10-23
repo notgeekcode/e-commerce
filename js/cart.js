@@ -3,6 +3,10 @@ let productoObj;
 let htmlContentToAppend;
 let productoPreCargado="https://japceibal.github.io/emercado-api/user_cart/25801" + EXT_TYPE;
 let inputCartValue = 1;
+let numeroCuentaID;
+let inputNroTarjeta;
+let inputCodSeguridad;
+let inputIDvencimiento;
 
 
 function cantProductosCarrito(){
@@ -71,7 +75,7 @@ function dibujarProducto() {
     <div class="container mt-5">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
             <label class="form-check-label" for="exampleRadios1">
                 Premium 2 a 5 días (15%)
             </label>
@@ -137,7 +141,7 @@ function dibujarProducto() {
                         </div>
                         <div class="modal-body">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTarjetaCredito">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Tarjeta de crédito
                                 </label>
@@ -155,20 +159,20 @@ function dibujarProducto() {
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <input class="form-control mt-2" type="text">
+                                        <input id="inputNroTarjeta" class="form-control mt-2" type="text">
                                     </div>
                                     <div class="col">
-                                        <input class="form-control mt-2" type="text">
+                                        <input id="inputCodSeguridad" class="form-control mt-2" type="text">
                                     </div>
                                 </div>
                                 <div class="mt-3">
                                     Vencimiento (MM/AA)
                                 </div>
                                 <div class="col">
-                                    <input class="form-control w-50 mt-2" type="text">
+                                    <input class="form-control w-50 mt-2" type="text" id="inputIDvencimiento">
                                 </div>
                                 <div class="form-check mt-3">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTransferBancaria">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Transferencia bancaria
                                     </label>
@@ -177,7 +181,7 @@ function dibujarProducto() {
                                     Número de cuenta
                                 </div> 
                                 <div>      
-                                    <input class="form-control w-50 mt-2" type="text">
+                                    <input id="numeroCuentaID" class="form-control w-50 mt-2" type="text">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -189,7 +193,7 @@ function dibujarProducto() {
                 </div>
             </div>
             <div>
-            <button class="btn btn-primary mt-5 col-12" type="button">Finalizar compra</button>
+            <button class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
             </div>
         </div>
     </div>
@@ -205,6 +209,8 @@ function productoPreCargadoObj(){
         if(resultObj.status === "ok") {
             productoObj = resultObj.data;
             dibujarProducto();
+            setOFF_TransferBancaria(); //funcion dentro del modal.
+            setOFF_TarjetaCredito();  //funcion dentro del modal.
         }else{
             alert("Algo salio mal: " + resultObj.data);
         } 
@@ -215,3 +221,45 @@ function productoPreCargadoObj(){
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
 });
+
+
+//funcion dentro del modal.
+function setOFF_TransferBancaria() {
+document.getElementById("flexRadioTarjetaCredito").addEventListener("click", function() {
+    
+    numeroCuentaID = document.getElementById("numeroCuentaID");
+    numeroCuentaID.setAttribute("disabled", "");
+
+    //limpiamos los campos: Nro de tarjeta, Cod seguridad y Vencimiento.
+    inputNroTarjeta = document.getElementById("inputNroTarjeta");
+    inputNroTarjeta.removeAttribute("disabled");
+
+    inputCodSeguridad = document.getElementById("inputCodSeguridad");
+    inputCodSeguridad.removeAttribute("disabled");
+
+    inputIDvencimiento = document.getElementById("inputIDvencimiento");
+    inputIDvencimiento.removeAttribute("disabled");
+
+
+});}
+
+//funcion dentro del modal.
+function setOFF_TarjetaCredito() {
+    document.getElementById("flexRadioTransferBancaria").addEventListener("click", function() {
+        
+        inputNroTarjeta = document.getElementById("inputNroTarjeta");
+        inputNroTarjeta.setAttribute("disabled", "");
+        
+        inputCodSeguridad = document.getElementById("inputCodSeguridad");
+        inputCodSeguridad.setAttribute("disabled", "");
+        
+        inputIDvencimiento = document.getElementById("inputIDvencimiento");
+        inputIDvencimiento.setAttribute("disabled", "");
+
+        //limpiamos el campo: Número de cuenta.
+        numeroCuentaID = document.getElementById("numeroCuentaID"); 
+        numeroCuentaID.removeAttribute("disabled");
+          
+    });}
+
+   
