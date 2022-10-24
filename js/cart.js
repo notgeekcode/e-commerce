@@ -11,13 +11,13 @@ let formaPagoTarjetaCredito;
 
  
 function cantProductosCarrito(){
-     document.getElementById("cartInputValue").addEventListener("input", function() {
-     inputCartValue = document.getElementById("cartInputValue").value;
-     if(inputCartValue < 0) {
-       document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
-    }else {
+    document.getElementById("cartInputValue").addEventListener("input", function() {
+        inputCartValue = document.getElementById("cartInputValue").value;
+        if(inputCartValue < 0) {
+            document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
+        }else {
         dibujarProducto(); //actualizar el subtotal
-    }
+        }
     });
 }
 
@@ -64,7 +64,7 @@ function dibujarProducto() {
                 <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}        
             </div>
             <div class="col">
-                <hr><br><input id="cartInputValue" class="form-control" placeholder="0" type="number" value=${inputCartValue}>              
+                <hr><br><input id="cartInputValue" class="form-control" type="number" value=${inputCartValue}>              
             </div>
             <div class="col">
                 <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${(productoObj.articles[0].unitCost * inputCartValue)}</strong>
@@ -76,19 +76,19 @@ function dibujarProducto() {
     <div class="container mt-5">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required>
             <label class="form-check-label" for="exampleRadios1">
                 Premium 2 a 5 días (15%)
             </label>
         </div>
         <div class="form-check mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" required>
             <label class="form-check-label" for="exampleRadios2">
                 Express 5 a 8 días (7%)
             </label>
         </div>
         <div class="form-check mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" required>
             <label class="form-check-label" for="exampleRadios3">
                 Standar 12 a 15 días (5%)
             </label>
@@ -110,15 +110,14 @@ function dibujarProducto() {
                 <input class="form-control w-50 mt-2" type="text" required>
                 <div class="invalid-feedback">
                     Ingrese una Esquina.
-                </div><br>
+                </div>
+                <br>
             </div>
-        
-
-            <br><hr>
-
+            <br>
+            <hr>
             <div class="container mt-4">
                 <h4>Costos</h4>
-                <ul class="list-group mt-3">
+                <ul class="list-group mt-3" id="test">
                 
                     <li class="list-group-item">
                         <strong>Subtotal</strong>
@@ -127,11 +126,11 @@ function dibujarProducto() {
                 
                     <li class="list-group-item">
                         <strong>Costo de envío</strong>
-                            <p>Según el tipo de envío <p class="text-end">Aqui va costo de envio ${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15))}</p></p>
+                            <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15))}</p></p>
                     </li>
                 
                     <li class="list-group-item mt"><strong>Total ($)</strong>
-                        <p class="text-end">Aqui va Total <strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+                        <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
                     </li>
                 </ul>
                 <br></div><hr>
@@ -181,7 +180,7 @@ function dibujarProducto() {
                                             <input class="form-control w-50 mt-2" type="text" id="inputIDvencimiento" required>
                                         </div>
                                         <div class="form-check mt-3">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTransferBancaria">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioTransferBancaria" required>
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Transferencia bancaria
                                             </label>
@@ -201,77 +200,11 @@ function dibujarProducto() {
                         </div>
                     </div>
                 <div>
-                    <button class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
+                    <button id="btnFinalizar" class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
                 </div>
-            </form>
-        </div>
-
-
-
-
-
-
-        <br><br><br><br>
-        <div class="container">
-            <main>
-
-      <form action="#" method="get" class="row mt-4 needs-validation" novalidate>
-        <div class="col">
-          <h1 class="mb-3">Registro</h1>
-          <hr class="my-4" />
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" required />
-              <div class="invalid-feedback">
-                Debe ingresar un nombre.
-              </div>
             </div>
-
-            <div class="col-sm-6">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellido" required />
-              <div class="invalid-feedback">
-                Debe ingresar un apellido.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" required />
-              <div class="invalid-feedback">
-                Debe ingresar un email.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="password1" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password1" required />
-              <div class="invalid-feedback">
-                Debe ingresar una contraseña con al menos 6 caracteres.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="password2" class="form-label">Repetir contraseña</label>
-              <input type="password" class="form-control" id="password2" required />
-              <div class="invalid-feedback">
-                Debe ser igual a "contraseña".
-              </div>
-            </div>
-
-            <div class="col-sm-12">
-              <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalTerminos">
-                Términos del servicio
-              </button>
-            </div>
-
-            <button class="btn btn-primary" type="submit">Registrarme</button>
-          </div>
-        </div>
-      </form>
-      </main>
-
+        </form>
+    </div>
     `;
 
     document.getElementById("productCart").innerHTML = htmlContentToAppend;
@@ -300,6 +233,11 @@ function dibujarProducto() {
        nuevamente su método de pago y éste puede ser visualizado de manera correcta*/
       setOFF_TransferBancaria(); 
       setOFF_TarjetaCredito();
+      validarCantProductos();
+      closeAlertSuccesBuy();
+      quincePorciento();
+      sietePorciento();
+      cincoPorciento()
   })()
 
 }
@@ -318,12 +256,9 @@ function productoPreCargadoObj(){
     })
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
-    
 });
-
 
 //funcion dentro del modal.
 function setOFF_TransferBancaria() {
@@ -376,6 +311,100 @@ function setOFF_TarjetaCredito() {
 
         //Mostramos lo que el usuario selecciono como método de pago
         document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><strong>Transferencia Bancaria.</strong></p>`;
-    });}
+});}
 
+function showAlertSuccess() {
+    document.getElementById("alert-successCompra").classList.add("show");
 
+} 
+
+function validarCantProductos() {
+    document.getElementById("btnFinalizar").addEventListener("click", function() {
+        if((inputCartValue == -1) || (inputCartValue == 0)) {
+            alert("Debe ingresar un número válido para la cantidad."); 
+            /*que debo hacer aca para validar que cuando sea -1 o 0 el formulario no se envie 
+            y obligue al usuario a ingresar un número válido.*/
+        }else {
+            //aqui podria trabajar las validaciones del boton finalizar -- comentario de uso propio.
+            alert("hola");
+        }
+    })
+}
+
+function closeAlertSuccesBuy() {
+    document.getElementById("closeAlertSuccess").addEventListener("click", function() {
+        window.location = "homepage.html";
+    })
+}
+
+//Tipo de envio: 15%
+function quincePorciento() {
+    document.getElementById("exampleRadios1").addEventListener("click", function() {
+        document.getElementById("test").innerHTML = `
+        <ul class="list-group" checked>
+                
+            <li class="list-group-item">
+                <strong>Subtotal</strong>
+                    <p>Costo unitario del producto por unidad <p class="text-end">${productoObj.articles[0].currency} ${(productoObj.articles[0].unitCost * inputCartValue)}</p></p>
+            </li>
+                
+            <li class="list-group-item">
+                <strong>Costo de envío</strong>
+                    <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15))}</p></p>
+            </li>
+                
+            <li class="list-group-item mt"><strong>Total ($)</strong>
+                <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+            </li>
+        </ul>
+        `
+    })
+}
+
+//Tipo de envio: 7%
+function sietePorciento() {
+        document.getElementById("exampleRadios2").addEventListener("click", function() {
+            document.getElementById("test").innerHTML = `
+            <ul class="list-group">
+                
+                    <li class="list-group-item" checked>
+                        <strong>Subtotal</strong>
+                            <p>Costo unitario del producto por unidad <p class="text-end">${productoObj.articles[0].currency} ${(productoObj.articles[0].unitCost * inputCartValue)}</p></p>
+                    </li>
+                
+                    <li class="list-group-item">
+                        <strong>Costo de envío</strong>
+                            <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.07))}</p></p>
+                    </li>
+                
+                    <li class="list-group-item mt"><strong>Total ($)</strong>
+                        <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.07) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+                    </li>
+                </ul>
+            `
+        })
+}
+
+//Tipo de envio: 5%
+function cincoPorciento() {
+        document.getElementById("exampleRadios3").addEventListener("click", function() {
+            document.getElementById("test").innerHTML = `
+            <ul class="list-group" checked>
+                
+                    <li class="list-group-item">
+                        <strong>Subtotal</strong>
+                            <p>Costo unitario del producto por unidad <p class="text-end">${productoObj.articles[0].currency} ${(productoObj.articles[0].unitCost * inputCartValue)}</p></p>
+                    </li>
+                
+                    <li class="list-group-item">
+                        <strong>Costo de envío</strong>
+                            <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.05))}</p></p>
+                    </li>
+                
+                    <li class="list-group-item mt"><strong>Total ($)</strong>
+                        <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.05) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+                    </li>
+                </ul>
+            `
+        })
+}
