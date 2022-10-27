@@ -24,6 +24,7 @@ function cantProductosCarrito(){
 function dibujarProducto() {
     htmlContentToAppend = `
     <div class="container">
+    <form action="#" method="get" class="row mt-4 needs-validation" novalidate> <div class="container">
         <div class="container mt-5"> 
             <h1 class="display-5 text-center"> Carrito de compras</h1>
         </div>
@@ -93,7 +94,7 @@ function dibujarProducto() {
                 Standar 12 a 15 días (5%)
             </label>
         </div>
-        <form action="#" method="get" class="row mt-4 needs-validation" novalidate>
+        
             <div class="container">
                 <h4 class="mt-5">Dirección de envío</h4>
                 <label class="mt-2">Calle</label>
@@ -203,8 +204,8 @@ function dibujarProducto() {
                     <button id="btnFinalizar" class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
                 </div>
             </div>
-        </form>
-    </div>
+        
+    </div></form></div>
     `;
 
     document.getElementById("productCart").innerHTML = htmlContentToAppend;
