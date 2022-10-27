@@ -24,7 +24,7 @@ function cantProductosCarrito(){
 function dibujarProducto() {
     htmlContentToAppend = `
     <div class="container">
-    <form action="#" method="get" class="row mt-4 needs-validation" novalidate> <div class="container">
+    <form action="#" method="get" class="row mt-4 needs-validation form-control" novalidate> <div class="container">
         <div class="container mt-5"> 
             <h1 class="display-5 text-center"> Carrito de compras</h1>
         </div>
@@ -75,6 +75,7 @@ function dibujarProducto() {
     </div>
     
     <div class="container mt-5">
+        <div class="container">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required>
@@ -93,6 +94,7 @@ function dibujarProducto() {
             <label class="form-check-label" for="exampleRadios3">
                 Standar 12 a 15 días (5%)
             </label>
+        </div>
         </div>
         
             <div class="container">
@@ -201,7 +203,7 @@ function dibujarProducto() {
                         </div>
                     </div>
                 <div>
-                    <button id="btnFinalizar" class="btn btn-primary mt-5 col-12" type="submit">Finalizar compra</button>
+                    <button id="btnFinalizar" class="btn btn-primary mt-5 mb-4 col-12" type="submit">Finalizar compra</button>
                 </div>
             </div>
         
