@@ -9,22 +9,11 @@ let inputCodSeguridad;
 let inputIDvencimiento;
 let formaPagoTarjetaCredito;
 
- 
-function cantProductosCarrito(){
-    document.getElementById("cartInputValue").addEventListener("input", function() {
-        inputCartValue = document.getElementById("cartInputValue").value;
-        if(inputCartValue < 0) {
-            document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
-        }else {
-        dibujarProducto(); //actualizar el subtotal
-        }
-    });
-}
 
 function dibujarProducto() {
     htmlContentToAppend = `
     <div class="container">
-    <form action="#" method="get" class="row mt-4 needs-validation form-control" novalidate> <div class="container">
+    <form action="#" id="form" method="get" class="row mt-4  form-control" novalidate> <div class="container">
         <div class="container mt-5"> 
             <h1 class="display-5 text-center"> Carrito de compras</h1>
         </div>
@@ -65,7 +54,7 @@ function dibujarProducto() {
                 <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}        
             </div>
             <div class="col">
-                <hr><br><input id="cartInputValue" class="form-control" type="number" value=${inputCartValue}>              
+                <hr><br><input id="cartInputValue" class="form-control" type="number" value=${inputCartValue} required>              
             </div>
             <div class="col">
                 <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${(productoObj.articles[0].unitCost * inputCartValue)}</strong>
@@ -78,7 +67,7 @@ function dibujarProducto() {
         <div class="container">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" required>
             <label class="form-check-label" for="exampleRadios1">
                 Premium 2 a 5 días (15%)
             </label>
@@ -212,37 +201,26 @@ function dibujarProducto() {
 
     document.getElementById("productCart").innerHTML = htmlContentToAppend;
     cantProductosCarrito();
-       // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
+       
+    var form = document.getElementById("form");
   
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-  
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-  
-          form.classList.add('was-validated')
-        }, false)
-      })
+    form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+        form.classList.add('was-validated')
+    })
       
-      /*al cambiar la cantidad de productos se le pide al usuario ingresar
-       nuevamente su método de pago y éste puede ser visualizado de manera correcta*/
-      setOFF_TransferBancaria(); 
-      setOFF_TarjetaCredito();
-      validarCantProductos();
-      closeAlertSuccesBuy();
-      quincePorciento();
-      sietePorciento();
-      cincoPorciento()
-  })()
-
+      
+    /*al cambiar la cantidad de productos se le pide al usuario ingresar
+    nuevamente su método de pago y éste puede ser visualizado de manera correcta*/
+    setOFF_TransferBancaria(); 
+    setOFF_TarjetaCredito();
+    closeAlertSuccesBuy();
+    quincePorciento();
+    sietePorciento();
+    cincoPorciento();
 }
 
 function productoPreCargadoObj(){
@@ -261,6 +239,7 @@ function productoPreCargadoObj(){
 
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
+    validarCantProductos();
 });
 
 //funcion dentro del modal.
@@ -321,22 +300,34 @@ function showAlertSuccess() {
 
 } 
 
-function validarCantProductos() {
-    document.getElementById("btnFinalizar").addEventListener("click", function() {
-        if((inputCartValue == -1) || (inputCartValue == 0)) {
-            alert("Debe ingresar un número válido para la cantidad."); 
-            /*que debo hacer aca para validar que cuando sea -1 o 0 el formulario no se envie 
-            y obligue al usuario a ingresar un número válido.*/
+
+function cantProductosCarrito(){
+    document.getElementById("cartInputValue").addEventListener("input", function() {
+        inputCartValue = document.getElementById("cartInputValue").value;
+        if(inputCartValue <= 0) {
+            document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
+            form.checkValidity
         }else {
-            //aqui podria trabajar las validaciones del boton finalizar -- comentario de uso propio.
-            alert("hola");
+        dibujarProducto(); //actualizar el subtotal
         }
-    })
+    });
+}
+
+//checkValidity() //devuelve true o false.
+//setCustomValidity(""); //validado
+//setCustomValidity(false); //no validado
+
+function validarCantProductos() {
+    if((inputCartValue == -1) || (inputCartValue == 0)) {
+        alert("asd");
+        /*que debo hacer aca para validar que cuando sea -1 o 0 el formulario no se envie 
+        y obligue al usuario a ingresar un número válido.*/
+    }
 }
 
 function closeAlertSuccesBuy() {
     document.getElementById("closeAlertSuccess").addEventListener("click", function() {
-        window.location = "homepage.html";
+        window.location = "categories.html";
     })
 }
 
