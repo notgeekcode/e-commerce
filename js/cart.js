@@ -412,23 +412,3 @@ function cincoPorciento() {
             `
         })
 }
-
-
-
-
-
-
-//function validarCheck() {
-//    if((document.getElementById("flexRadioTarjetaCredito").checkValidity()) || (document.getElementById("flexRadioTransferBancaria").checkValidity())) {
-//       if(document.getElementById("numeroCuentaID").checkValidity()){
-//            showAlertSuccess();
-//       }
-//       if((document.getElementById("inputNroTarjeta").checkValidity()) && (document.getElementById("inputCodSeguridad").checkValidity()) && document.getElementById("inputIDvencimiento").checkValidity()){
-//        /* showAlertSuccess(); */
-//   }
-//    }
-//    else{
-//        document.getElementById("validarMetodoDePago").innerHTML = "";
-//       document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago</p>`;
-//    }
-//
