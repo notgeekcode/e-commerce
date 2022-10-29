@@ -197,5 +197,13 @@ a.custom-card:hover {
 }
 
 .forma-pago {
+  color: green;
+}
+
+.forma-pago-rojo {
   color: rgb(245, 0, 0);
+}
+
+.forma-pago-negro {
+  color: black;
 }

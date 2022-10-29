@@ -45,7 +45,7 @@ function dibujarProducto() {
         <div class="row">
             <div class="col">
             <hr>
-                <img src="${productoObj.articles[0].image}" alt="${productoObj.articles[0].name}" id="miniatura" class="img-fluid float-start">            
+                <img src="${productoObj.articles[0].image}" alt="${productoObj.articles[0].name}" id="miniatura" class="img-fluid float-start ms-4">            
             </div>
              <div class="col">
                  <hr><br>${productoObj.articles[0].name}
@@ -129,7 +129,7 @@ function dibujarProducto() {
                 <div class="container mt-4">
                     <h4>Forma de pago</h4>
                     <p class="mt-4" id="validarMetodoDePago">No ha seleccionado</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button id="testbtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Seleccionar forma de pago
                     </button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -181,10 +181,10 @@ function dibujarProducto() {
                                             Número de cuenta
                                         </div> 
                                         <div>      
-                                            <input id="numeroCuentaID" class="form-control w-50 mt-2" type="text" required>
+                                            <input id="numeroCuentaID" class="form-control w-50 mt-2 mb-4" type="text" required>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button id="closeModal" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -210,6 +210,7 @@ function dibujarProducto() {
         event.stopPropagation();
     }
         form.classList.add('was-validated')
+        validarCheck();
     })
       
       
@@ -221,7 +222,17 @@ function dibujarProducto() {
     quincePorciento();
     sietePorciento();
     cincoPorciento();
+    eventoCloseModalBanco();
 }
+//funcion que se ejecuta cuando el checkbox dentro del modal de forma de pago no esta selecionado y tampoco el input numero de cuenta.
+function eventoCloseModalBanco() {
+document.getElementById("closeModal").addEventListener("click", function() {
+    if((document.getElementById("numeroCuentaID").value == "") || (document.getElementById("flexRadioTransferBancaria").checked == false)) {
+        document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago.</p>`
+    }else {
+       document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
+    }
+})}
 
 function productoPreCargadoObj(){
     
@@ -264,7 +275,7 @@ document.getElementById("flexRadioTarjetaCredito").addEventListener("click", fun
     numeroCuentaID.value = "";
 
     //Mostramos lo que el usuario selecciono como método de pago
-    document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><strong>Tarjeta de crédito.</strong></p>`;
+    document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Tarjeta de crédito</strong> <span class="forma-pago-negro">como método de pago.</p>`;
 
 });}
 
@@ -292,7 +303,7 @@ function setOFF_TarjetaCredito() {
         inputIDvencimiento.value = ""; 
 
         //Mostramos lo que el usuario selecciono como método de pago
-        document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><strong>Transferencia Bancaria.</strong></p>`;
+        document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
 });}
 
 function showAlertSuccess() {
@@ -305,8 +316,7 @@ function cantProductosCarrito(){
     document.getElementById("cartInputValue").addEventListener("input", function() {
         inputCartValue = document.getElementById("cartInputValue").value;
         if(inputCartValue <= 0) {
-            document.getElementById("cartInputValue").value = ""; //cantidad de productos no sea menor a 0.
-            form.checkValidity
+            document.getElementById("cartInputValue").value = ""; //al quedar vacio no sera validado por el form.
         }else {
         dibujarProducto(); //actualizar el subtotal
         }
@@ -402,3 +412,23 @@ function cincoPorciento() {
             `
         })
 }
+
+
+
+
+
+
+//function validarCheck() {
+//    if((document.getElementById("flexRadioTarjetaCredito").checkValidity()) || (document.getElementById("flexRadioTransferBancaria").checkValidity())) {
+//       if(document.getElementById("numeroCuentaID").checkValidity()){
+//            showAlertSuccess();
+//       }
+//       if((document.getElementById("inputNroTarjeta").checkValidity()) && (document.getElementById("inputCodSeguridad").checkValidity()) && document.getElementById("inputIDvencimiento").checkValidity()){
+//        /* showAlertSuccess(); */
+//   }
+//    }
+//    else{
+//        document.getElementById("validarMetodoDePago").innerHTML = "";
+//       document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago</p>`;
+//    }
+//
