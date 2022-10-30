@@ -333,7 +333,6 @@ function showAlertSuccess() {
     document.getElementById("alert-successCompra").classList.add("show");
 } 
 
-
 function cantProductosCarrito(){
     document.getElementById("cartInputValue").addEventListener("input", function() {
         inputCartValue = document.getElementById("cartInputValue").value;
