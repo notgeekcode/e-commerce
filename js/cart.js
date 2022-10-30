@@ -232,16 +232,18 @@ function dibujarProducto() {
 
 
     //Si el formulario no está validado mostrar un mensaje al usuario.
-    /* document.getElementById("btnFinalizar").addEventListener("click", function() {
-        if(!form.checkValidity()) {
-            document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Usted no ha ingresado todos los campos obligatorios, vuelva a intentarlo.</p>`
+    document.getElementById("btnFinalizar").addEventListener("click", function() {
+        if((document.getElementById("numeroCuentaID").value == "" && document.getElementById("flexRadioTransferBancaria").checked == false) && (document.getElementById("flexRadioTarjetaCredito").checked == true && document.getElementById("inputNroTarjeta").value != "" && document.getElementById("inputCodSeguridad").value != "" && document.getElementById("inputIDvencimiento").value != "")){
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Tarjeta de crédito</strong> <span class="forma-pago-negro">como método de pago.</p>`;
+        }else if((document.getElementById("numeroCuentaID").value != "" && document.getElementById("flexRadioTransferBancaria").checked == true) && (document.getElementById("flexRadioTarjetaCredito").checked == false && document.getElementById("inputNroTarjeta").value == "" && document.getElementById("inputCodSeguridad").value == "" && document.getElementById("inputIDvencimiento").value == "")) {
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
         }
-    }) */
-
+    })
 }
 
+//Si los checkbox dentro del modal son false mostramos alerta.
 function validarModal() {
-    if(document.getElementById("flexRadioTransferBancaria").checked == false || document.getElementById("flexRadioTarjetaCredito").checked == false) {
+    if(document.getElementById("flexRadioTransferBancaria").checked == false && document.getElementById("flexRadioTarjetaCredito").checked == false) {
         document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago.</p>`
     }
 }
