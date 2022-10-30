@@ -287,25 +287,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //funcion dentro del modal.
 function setOFF_TransferBancaria() {
-document.getElementById("flexRadioTarjetaCredito").addEventListener("click", function() {
+    document.getElementById("flexRadioTarjetaCredito").addEventListener("click", function() {
     
-    //Desabilitamos Número de cuenta dentro del modal
-    numeroCuentaID = document.getElementById("numeroCuentaID");
-    numeroCuentaID.setAttribute("disabled", "");
+        //Desabilitamos Número de cuenta dentro del modal
+        numeroCuentaID = document.getElementById("numeroCuentaID");
+        numeroCuentaID.setAttribute("disabled", "");
 
-    //Habilitamos: Nro de tarjeta, Cod seguridad y Vencimiento.
-    inputNroTarjeta = document.getElementById("inputNroTarjeta");
-    inputNroTarjeta.removeAttribute("disabled");
+        //Habilitamos: Nro de tarjeta, Cod seguridad y Vencimiento.
+        inputNroTarjeta = document.getElementById("inputNroTarjeta");
+        inputNroTarjeta.removeAttribute("disabled");
 
-    inputCodSeguridad = document.getElementById("inputCodSeguridad");
-    inputCodSeguridad.removeAttribute("disabled");
+        inputCodSeguridad = document.getElementById("inputCodSeguridad");
+        inputCodSeguridad.removeAttribute("disabled");
 
-    inputIDvencimiento = document.getElementById("inputIDvencimiento");
-    inputIDvencimiento.removeAttribute("disabled");
+        inputIDvencimiento = document.getElementById("inputIDvencimiento");
+        inputIDvencimiento.removeAttribute("disabled");
 
-    //Limpiamos el contenido
-    numeroCuentaID.value = "";
-});}
+        //Limpiamos el contenido
+        numeroCuentaID.value = "";
+    })
+}
 
 //funcion dentro del modal.
 function setOFF_TarjetaCredito() {
@@ -329,7 +330,8 @@ function setOFF_TarjetaCredito() {
         inputNroTarjeta.value = "";
         inputCodSeguridad.value = "";
         inputIDvencimiento.value = ""; 
-});}
+    })
+}
 
 function showAlertSuccess() {
     document.getElementById("alert-successCompra").classList.add("show");
