@@ -1,4 +1,3 @@
-
 let productoObj;
 let htmlContentToAppend;
 let productoPreCargado="https://japceibal.github.io/emercado-api/user_cart/25801" + EXT_TYPE;
@@ -7,8 +6,6 @@ let numeroCuentaID;
 let inputNroTarjeta;
 let inputCodSeguridad;
 let inputIDvencimiento;
-let formaPagoTarjetaCredito;
-
 
 function dibujarProducto() {
     htmlContentToAppend = `
@@ -67,7 +64,7 @@ function dibujarProducto() {
         <div class="container">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" required>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required>
             <label class="form-check-label" for="exampleRadios1">
                 Premium 2 a 5 días (15%)
             </label>
@@ -208,9 +205,12 @@ function dibujarProducto() {
     if (!form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
+        validarModal(); /*si el usuario intenta enviar el formulario sin haber ingresado al modal, 
+        le mostraremos una alerta (de todas formas el form esta en estado no validado)*/
+    }else {
+        validarFormulario();
     }
         form.classList.add('was-validated')
-        validarCheck();
     })
       
       
@@ -218,21 +218,52 @@ function dibujarProducto() {
     nuevamente su método de pago y éste puede ser visualizado de manera correcta*/
     setOFF_TransferBancaria(); 
     setOFF_TarjetaCredito();
-    closeAlertSuccesBuy();
+
+    //al cerrar la alerta de compra exitosa, el usuario sera redireccionado a categories.html
+    closeAlertSuccesBuy(); 
+    
+    //Calcular cada tipo de envio.
     quincePorciento();
     sietePorciento();
     cincoPorciento();
-    eventoCloseModalBanco();
+
+    //evento que se lanza al cerrar el modal. 
+    eventoCloseModal();
+
+
+    //Si el formulario no está validado mostrar un mensaje al usuario.
+    /* document.getElementById("btnFinalizar").addEventListener("click", function() {
+        if(!form.checkValidity()) {
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Usted no ha ingresado todos los campos obligatorios, vuelva a intentarlo.</p>`
+        }
+    }) */
+
 }
-//funcion que se ejecuta cuando el checkbox dentro del modal de forma de pago no esta selecionado y tampoco el input numero de cuenta.
-function eventoCloseModalBanco() {
-document.getElementById("closeModal").addEventListener("click", function() {
-    if((document.getElementById("numeroCuentaID").value == "") || (document.getElementById("flexRadioTransferBancaria").checked == false)) {
+
+function validarModal() {
+    if(document.getElementById("flexRadioTransferBancaria").checked == false || document.getElementById("flexRadioTarjetaCredito").checked == false) {
         document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago.</p>`
-    }else {
-       document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
     }
-})}
+}
+
+function validarFormulario() {
+    if(form.checkValidity) {
+        showAlertSuccess();
+    }
+}
+
+//validación dentro del modal
+function eventoCloseModal() {
+    document.getElementById("closeModal").addEventListener("click", function() {
+        if((document.getElementById("numeroCuentaID").value == "" && document.getElementById("flexRadioTransferBancaria").checked == false) && (document.getElementById("flexRadioTarjetaCredito").checked == true && document.getElementById("inputNroTarjeta").value != "" && document.getElementById("inputCodSeguridad").value != "" && document.getElementById("inputIDvencimiento").value != "")){
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Tarjeta de crédito</strong> <span class="forma-pago-negro">como método de pago.</p>`;
+        }else if((document.getElementById("numeroCuentaID").value != "" && document.getElementById("flexRadioTransferBancaria").checked == true) && (document.getElementById("flexRadioTarjetaCredito").checked == false && document.getElementById("inputNroTarjeta").value == "" && document.getElementById("inputCodSeguridad").value == "" && document.getElementById("inputIDvencimiento").value == "")) {
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
+        }else {
+            document.getElementById("validarMetodoDePago").innerHTML = `<p class="forma-pago-rojo">Debe seleccionar una forma de pago.</p>`
+        }
+    })
+}
 
 function productoPreCargadoObj(){
     
@@ -250,7 +281,6 @@ function productoPreCargadoObj(){
 
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
-    validarCantProductos();
 });
 
 //funcion dentro del modal.
@@ -273,10 +303,6 @@ document.getElementById("flexRadioTarjetaCredito").addEventListener("click", fun
 
     //Limpiamos el contenido
     numeroCuentaID.value = "";
-
-    //Mostramos lo que el usuario selecciono como método de pago
-    document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Tarjeta de crédito</strong> <span class="forma-pago-negro">como método de pago.</p>`;
-
 });}
 
 //funcion dentro del modal.
@@ -301,14 +327,10 @@ function setOFF_TarjetaCredito() {
         inputNroTarjeta.value = "";
         inputCodSeguridad.value = "";
         inputIDvencimiento.value = ""; 
-
-        //Mostramos lo que el usuario selecciono como método de pago
-        document.getElementById("validarMetodoDePago").innerHTML = `<p class="mt-4 forma-pago"><span class="forma-pago-negro">Usted ha seleccionado</span> <strong>Transferencia Bancaria</strong> <span class="forma-pago-negro">como método de pago.</p>`;
 });}
 
 function showAlertSuccess() {
     document.getElementById("alert-successCompra").classList.add("show");
-
 } 
 
 
@@ -321,18 +343,6 @@ function cantProductosCarrito(){
         dibujarProducto(); //actualizar el subtotal
         }
     });
-}
-
-//checkValidity() //devuelve true o false.
-//setCustomValidity(""); //validado
-//setCustomValidity(false); //no validado
-
-function validarCantProductos() {
-    if((inputCartValue == -1) || (inputCartValue == 0)) {
-        alert("asd");
-        /*que debo hacer aca para validar que cuando sea -1 o 0 el formulario no se envie 
-        y obligue al usuario a ingresar un número válido.*/
-    }
 }
 
 function closeAlertSuccesBuy() {
@@ -412,3 +422,9 @@ function cincoPorciento() {
             `
         })
 }
+
+
+/* AYUDAMEMORIA
+    checkValidity() devuelve true o false.
+    setCustomValidity(""); validado
+    setCustomValidity(false); no validado */
