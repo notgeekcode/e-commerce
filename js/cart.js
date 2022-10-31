@@ -106,7 +106,7 @@ function dibujarProducto() {
             <hr>
             <div class="container mt-4">
                 <h4>Costos</h4>
-                <ul class="list-group mt-3" id="test">
+                <ul class="list-group mt-3" id="listaCostos">
                 
                     <li class="list-group-item">
                         <strong>Subtotal</strong>
@@ -357,7 +357,7 @@ function closeAlertSuccesBuy() {
 //Tipo de envio: 15%
 function quincePorciento() {
     document.getElementById("exampleRadios1").addEventListener("click", function() {
-        document.getElementById("test").innerHTML = `
+        document.getElementById("listaCostos").innerHTML = `
         <ul class="list-group" checked>
                 
             <li class="list-group-item">
@@ -381,7 +381,7 @@ function quincePorciento() {
 //Tipo de envio: 7%
 function sietePorciento() {
         document.getElementById("exampleRadios2").addEventListener("click", function() {
-            document.getElementById("test").innerHTML = `
+            document.getElementById("listaCostos").innerHTML = `
             <ul class="list-group">
                 
                     <li class="list-group-item" checked>
@@ -405,7 +405,7 @@ function sietePorciento() {
 //Tipo de envio: 5%
 function cincoPorciento() {
         document.getElementById("exampleRadios3").addEventListener("click", function() {
-            document.getElementById("test").innerHTML = `
+            document.getElementById("listaCostos").innerHTML = `
             <ul class="list-group" checked>
                 
                     <li class="list-group-item">
