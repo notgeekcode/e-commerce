@@ -10,14 +10,15 @@ let inputIDvencimiento;
 function dibujarProducto() {
     htmlContentToAppend = `
     <div class="container">
-    <form action="#" id="form" method="get" class="row mt-4  form-control" novalidate> <div class="container">
-        <div class="container mt-5"> 
-            <h1 class="display-5 text-center"> Carrito de compras</h1>
+    <form action="#" id="form" method="get" class="row mt-4  form-control" novalidate>
+        <div class="container">
+            <div class="container mt-5"> 
+                <h1 class="display-5 text-center"> Carrito de compras</h1>
+            </div>
+            <div class="container mt-4">
+                <h4 class="display-7 text-center">Artículos a comprar</h4><br>
+            </div>
         </div>
-        <div class="container mt-4">
-            <h4 class="display-7 text-center">Artículos a comprar</h4><br>
-        </div>
-    </div>
 
     <div class="container text-center mt-4">
         <div class="row">

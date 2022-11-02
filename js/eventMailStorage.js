@@ -1,8 +1,8 @@
-let listaPrevia1 = JSON.parse(localStorage.getItem("userEmail")??"[]"); 
+let listaPrevia1 = JSON.parse(localStorage.getItem("userEmail")??"[]"); //operador terniario
 //obtengo los datos del mail a traves del localstorage y con el JSON.parse lo transforme en String
 userMail = localStorage.getItem("userEmail");
 
-//Validacion para que el usuario este logueado antes de ingresar a su perfil
+//Validación para que el usuario este logueado antes de ingresar a su perfil
 if(userMail == null) {
   alert("Debes iniciar sesión primero.");
   window.location = "index.html";

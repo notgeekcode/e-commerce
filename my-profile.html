@@ -51,6 +51,7 @@
     </div>
   </nav>
   <main>
+    <form action="#" id="registro" method="get" class="row mt-4  form-control" novalidate>
     <div class="container mt-5 col-8"> 
       <h1 class="text-align-start ms-5">Perfil</h1>
       <hr>
@@ -68,6 +69,9 @@
         <div class="row">
           <div class="col">
             <input id="primerNombre" name="primerNombre" class="form-control mt-2" type="text" required>
+            <div class="invalid-feedback">
+              Ingrese su primer nombre.
+          </div>
             </div>
             <div class="col">
               <input id="segundoNombre" name="segundoNombre" class="form-control mt-2" type="text">
@@ -90,7 +94,10 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <input id="primerapellido" name="primerapellido" class="form-control mt-2" type="text" required>
+            <input id="primerApellido" name="primerapellido" class="form-control mt-2" type="text" required>
+            <div class="invalid-feedback">
+              Ingrese su primer apellido.
+          </div>
             </div>
             <div class="col">
               <input id="segundoapellido" name="segundoapellido" class="form-control mt-2" type="text">
@@ -114,6 +121,9 @@
         <div class="row">
           <div class="col">
             <input id="mail" name="mail" class="form-control mt-2" type="text" required>
+            <div class="invalid-feedback">
+              Ingrese un mail.
+          </div>
           </div>
           <div class="col">
             <input id="TelContacto" name="TelContacto" class="form-control mt-2" type="text">
@@ -123,11 +133,12 @@
       <div class="container">
         <div class="row">
           <div class="col"><hr>
-            <button id="btnGuardar" type="button" class="btn btn-primary mt-1">Guardar cambios</button>
+            <button id="btnGuardar" type="submit" class="btn btn-primary mt-1">Guardar cambios</button>
           </div>
         </div>
       </div>
     </div>
+  </form>
   </main>
   <footer class="text-muted">
     <div class="container">
