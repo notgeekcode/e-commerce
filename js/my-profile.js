@@ -34,6 +34,7 @@ registro.addEventListener('submit', function (event) {
         event.stopPropagation();
     }else {
         validarFormulario();
+
     }
     registro.classList.add('was-validated')
 })
@@ -43,3 +44,7 @@ function validarFormulario() {
         showAlertSuccess();
     }
 }
+
+function showAlertSuccess() {
+    document.getElementById("alert-successCompra").classList.add("show");
+} 

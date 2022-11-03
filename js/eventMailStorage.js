@@ -5,7 +5,7 @@ userMail = localStorage.getItem("userEmail");
 //Validación para que el usuario este logueado antes de ingresar a su perfil
 if(userMail == null) {
   alert("Debes iniciar sesión primero.");
-  window.location = "index.html";
+  window.location = "login.html";
 }
 
 //boton dropdown de bootstrap con una lista desordenada las cuales llevan hipervinculos a otros .html del proyecto.
@@ -17,6 +17,6 @@ document.getElementById("nav-item-id").innerHTML = `
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
     <li><a class="dropdown-item" href="my-profile.html">Mi perfil </a></li>
-    <li><a class="dropdown-item" href="index.html">Cerrar sesión</a></li>
+    <li><a class="dropdown-item" href="login.html">Cerrar sesión</a></li>
   </ul>
 </div>`;

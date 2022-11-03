@@ -12,11 +12,11 @@ document.getElementById("regBtn").addEventListener("click", function() {
         
     } else {
         showAlertSuccess();
-        window.location.href = "homepage.html";
+        window.location.href = "index.html";
     }
 })
 
-//cuando el usuario este en index.html el localStorage va a limpiarse siempre.
+//cuando el usuario este en login.html el localStorage va a limpiarse siempre.
 document.addEventListener("DOMContentLoaded", function() {
     localStorage.clear();
 })

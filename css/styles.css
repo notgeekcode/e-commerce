@@ -207,3 +207,14 @@ a.custom-card:hover {
 .forma-pago-negro {
   color: black;
 }
+
+.posicionBuscador {
+  position: relative;
+  left: -1%;
+  top: 37px;
+}
+
+.divLeft {
+  position: relative;
+  right: 50%;
+}
