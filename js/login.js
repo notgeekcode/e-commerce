@@ -18,7 +18,7 @@ document.getElementById("regBtn").addEventListener("click", function() {
 
 //cuando el usuario este en login.html el localStorage va a limpiarse siempre.
 document.addEventListener("DOMContentLoaded", function() {
-    localStorage.clear();
+    
 })
 
 document.getElementById("regBtn").addEventListener("click", function() { //evento que se ejecuta cuando el usuario hace click en el boton de ingresar en el login
