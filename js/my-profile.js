@@ -1,5 +1,4 @@
 let setFormularioObj = {};
-let getFormularioObj = {};
 let registro = document.getElementById("registro");
 
 let userMail = localStorage.getItem("userEmail"); //obtenemos a traves del key userMail del LocalStorage el valor mail que ingreso el usuario en el login
@@ -15,15 +14,17 @@ document.getElementById("btnGuardar").addEventListener("click", function() {
         'mail': document.getElementById("mail").value
     };
     
-    localStorage.setItem('formularioObj', JSON.stringify(setFormularioObj)); 
+    localStorage.setItem(document.getElementById("mail").value, JSON.stringify(setFormularioObj)); //guardamos con el mail como key y en forma de string el objeto en el ls... como el key va ser diferente en cada mail se va a crear un objeto diferente en el ls
+    
 });
 
 //Traer el objeto del LocalStorage
 document.addEventListener("DOMContentLoaded", function() {
-    
-    getFormularioObj = JSON.parse(localStorage.getItem('formularioObj'));
-    document.getElementById("primerNombre").value = getFormularioObj.nombre;
-    document.getElementById("primerApellido").value = getFormularioObj.apellido;
+    //el valor de los input seran iguales a los atributos del objeto de cada usuario segun cada mail.
+    document.getElementById("primerNombre").value = JSON.parse(localStorage.getItem(document.getElementById("mail").value)).nombre;
+    document.getElementById("primerApellido").value = JSON.parse(localStorage.getItem(document.getElementById("mail").value)).apellido
+
+   
 })
 
 //validacion del formulario.      
