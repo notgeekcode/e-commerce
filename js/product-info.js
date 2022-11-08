@@ -51,16 +51,16 @@ function showCarousel() {
     let dibujarCarousel = "";
     dibujarCarousel = `<div id="carouselExampleControls" class="carousel slide imgC mx-auto shadow p-3 mb-5 bg-body rounded" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item active" data-bs-interval="2500">
             <img src="${currentCategoriesArray.images[0]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="2500">
             <img src="${currentCategoriesArray.images[1]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="2500">
             <img src="${currentCategoriesArray.images[2]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" data-bs-interval="2500">
             <img src="${currentCategoriesArray.images[3]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
         </div>
     </div>
@@ -230,3 +230,4 @@ document.getElementById("btnEnviar").addEventListener("click", function () {
         `;
     }
 })
+
