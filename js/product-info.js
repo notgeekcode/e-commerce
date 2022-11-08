@@ -1,3 +1,5 @@
+const date = new Date();
+
 let currentCategoriesArray = []; //asignamos un array vacio.
 let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con diferente key //
 JSON.stringify(getDatos);
@@ -140,3 +142,60 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
  
+document.getElementById("btnEnviar").addEventListener("click", function() {
+   let textArea = document.getElementById("textArea");
+   
+   let select = document.getElementById("select");
+
+   let userEmailLocalStorage = localStorage.getItem("userEmail");
+   let userEmail = userEmailLocalStorage.substring(1, (userEmailLocalStorage.length - 1));
+
+
+   if(select.value == "1"){
+        document.getElementById("comentarios").innerHTML += `
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star">
+                        <p>${textArea.value}</p>
+                    </div>
+                </div> 
+        `;
+    }else if(select.value == "2") {
+        document.getElementById("comentarios").innerHTML += `
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                        <p>${textArea.value}</p>
+                    </div>
+                </div> 
+        `;
+    }else if(select.value == "3") {
+        document.getElementById("comentarios").innerHTML += `
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                        <p>${textArea.value}</p>
+                    </div>
+                </div> 
+        `;
+    }else if(select.value == "4") {
+        document.getElementById("comentarios").innerHTML += `
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+                        <p>${textArea.value}</p>
+                    </div>
+                </div> 
+        `;
+    }
+    else if(select.value == "5") {
+        document.getElementById("comentarios").innerHTML += `
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                        <p>${textArea.value}</p>
+                    </div>
+                </div> 
+        `;
+    }
+})

@@ -52,19 +52,19 @@
       <h2 class="text-center display-5">Comentar:</h2>
       <hr>
       <div class="mb-3">
-        <textarea class="form-control" rows="4" placeholder="Escribe aquí tu opinión"></textarea>
+        <textarea id="textArea" class="form-control" rows="4" placeholder="Escribe aquí tu opinión"></textarea>
       </div>
       <div>
-        <select class="form-select cursor-active" aria-label="Default select example">
+        <select id="select" class="form-select cursor-active" aria-label="Default select example">
           <option selected disabled>Click aquí para seleccionar puntuación</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="3">4</option>
-          <option value="3">5</option>
+          <option id="1" value="1">1</option>
+          <option id="2" value="2">2</option>
+          <option id="3" value="3">3</option>
+          <option id="4" value="4">4</option>
+          <option id="5" value="5">5</option>
         </select>
         <br>
-        <div><button type="button" class="btn btn-primary">Enviar</button></div>
+        <div><button id="btnEnviar" type="button" class="btn btn-primary">Enviar</button></div>
       </div>
       <br><hr>
       <div id="productos-relacionados">
