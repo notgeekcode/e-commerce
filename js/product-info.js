@@ -1,7 +1,11 @@
 const date = new Date();
+let textArea = document.getElementById("textArea");
+let select = document.getElementById("select");
+let userEmailLocalStorage = localStorage.getItem("userEmail");
+let userEmail = userEmailLocalStorage.substring(1, (userEmailLocalStorage.length - 1));
 
 let currentCategoriesArray = []; //asignamos un array vacio.
-let getDatos = JSON.parse(localStorage.getItem("catID1")??[]); //seteo con diferente key //
+let getDatos = JSON.parse(localStorage.getItem("catID1") ?? []); //seteo con diferente key //
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
 
@@ -11,7 +15,7 @@ let currentComments = [];
 
 
 //funcion que dibuja en pantalla diferentes atributos del array currentCategoriesArray.
-function showCategoriesList(){ 
+function showCategoriesList() {
     let htmlContentToAppend = "";
     htmlContentToAppend = `
     <div>
@@ -41,16 +45,16 @@ function showCategoriesList(){
 }
 
 //function que itera sobre el array de images del JSON y las muestra en pantalla.
-function showimgs() { 
+function showimgs() {
     let htmlContentToAppend = "";
-    for(let i = 0; i<currentCategoriesArray.images.length; i++){
-    htmlContentToAppend += `
+    for (let i = 0; i < currentCategoriesArray.images.length; i++) {
+        htmlContentToAppend += `
         <div class="shadow p-3 mb-5 bg-body rounded">
             <img src="${currentCategoriesArray.images[i]} " alt="${currentCategoriesArray.description}" class="img-fluid rounded mx-auto d-block">
             <br>
-        </div>` 
-    } 
-     
+        </div>`
+    }
+
     document.getElementById("contenedor-imagen").innerHTML = htmlContentToAppend;
 }
 
@@ -60,30 +64,30 @@ function setCatID(id) { //funcion que setea el localStorage con el key "CatID1, 
 }
 
 function setCatID2(id) { //funcion que setea el localStorage con el key "CatID1, y el valor id"
-    localStorage.setItem("catID1", id); 
+    localStorage.setItem("catID1", id);
 
     window.location = "product-info.html" //redirecciona a product-info.html
 }
 
 function showComments() {
     let contenido = ""; //en esta variable se va a ver todo(comentarios con usuarios fechas estrellas descripción.).
-   
-    for(let i=0; i<currentComments.length; i++){ //iteramos sobre los cometarios que me trae el JSON
+
+    for (let i = 0; i < currentComments.length; i++) { //iteramos sobre los cometarios que me trae el JSON
         let htmlContentToAppend = ""; //limpiador
         let comentarios = currentComments[i]; //cada comentario de cada usuario
-        
+
         //dibujamos estrellas
-        for(let i=1; i<6; i++){ //se va a repetir una condicion de 1 a 5 estrellas que es el max de estrellas posibles
-           
+        for (let i = 1; i < 6; i++) { //se va a repetir una condicion de 1 a 5 estrellas que es el max de estrellas posibles
+
             //Estrellas reseña
-            if(i <= comentarios.score ){
-            htmlContentToAppend += ` 
+            if (i <= comentarios.score) {
+                htmlContentToAppend += ` 
             <span class="fa fa-star checked"></span>`
-            }else{ 
+            } else {
                 htmlContentToAppend += ` <span class="fa fa-star"></span>`
             }
-        } 
-        
+        }
+
         //dibujamos los atributos que nos importan del JSON
         contenido += `
             <div class="container shadow p-3 mb-5 bg-body rounded">
@@ -92,110 +96,103 @@ function showComments() {
                     <p>${currentComments[i].description}</p>
                 </div>
             </div> `
-        
+
     }
     document.getElementById("comentarios").innerHTML = contenido;
-    
+
 }
 
 //funcion que llama al fetch  y el objeto resultado es utilizado en la funcion showCommetns();
-function datosComentarios(){
-    
-    getJSONData(setComments).then(function(resultObj){
-        if(resultObj.status === "ok") {
-            currentComments = resultObj.data; 
+function datosComentarios() {
+
+    getJSONData(setComments).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            currentComments = resultObj.data;
             showComments();
-        }else{
+        } else {
             alert("Algo salio mal: " + resultObj.data);
         }
     })
 }
 
-function showRelatedImgs() { 
-   
+function showRelatedImgs() {
+
     let htmlContentToAppend = "";
-    for(let i = 0; i<currentCategoriesArray.relatedProducts.length; i++){
-    htmlContentToAppend += `
+    for (let i = 0; i < currentCategoriesArray.relatedProducts.length; i++) {
+        htmlContentToAppend += `
     <br>
     <div onclick="setCatID2(${currentCategoriesArray.relatedProducts[i].id})" class="shadow p-3 mb-5 bg-body rounded cursor-active">
     <h6 class="text-center p-2 display-6">${currentCategoriesArray.relatedProducts[i].name}<h6>
     <img src="${currentCategoriesArray.relatedProducts[i].image} " alt="${currentCategoriesArray.description}" class="img-fluid rounded mx-auto d-block">
-    </div>`;  
-    } 
-     
-    document.getElementById("productos-relacionados-div").innerHTML = htmlContentToAppend; 
+    </div>`;
+    }
+
+    document.getElementById("productos-relacionados-div").innerHTML = htmlContentToAppend;
 }
 
 /*Funcion que cuando carga la pagina, hace un llamado al fetch y el objeto es utilizado en la funcion
   showCategoriesList();. Luego invoca a las funciones showimgs(), datosComentarios() y showRelatedImgs(); */
-document.addEventListener("DOMContentLoaded", function(){
-    getJSONData(setCat).then(function(resultObj){
-        if (resultObj.status === "ok"){
+document.addEventListener("DOMContentLoaded", function () {
+    getJSONData(setCat).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             currentCategoriesArray = resultObj.data
             showCategoriesList();
             showimgs();
             datosComentarios();
             showRelatedImgs()
-        }else{
+        } else {
             alert("Algo salió mal: " + resultObj.data);
-        } 
+        }
     });
 });
- 
-document.getElementById("btnEnviar").addEventListener("click", function() {
-   let textArea = document.getElementById("textArea");
+
+document.getElementById("btnEnviar").addEventListener("click", function () {
    
-   let select = document.getElementById("select");
-
-   let userEmailLocalStorage = localStorage.getItem("userEmail");
-   let userEmail = userEmailLocalStorage.substring(1, (userEmailLocalStorage.length - 1));
-
-
-   if(select.value == "1"){
+    if (select.value == "1") {
         document.getElementById("comentarios").innerHTML += `
         <div class="container shadow p-3 mb-5 bg-body rounded">
-                    <div>
-                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star">
-                        <p>${textArea.value}</p>
-                    </div>
-                </div> 
+            <div>
+                <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star">
+                <p>${textArea.value}</p>
+            </div>
+        </div> 
         `;
-    }else if(select.value == "2") {
+    } else if (select.value == "2") {
         document.getElementById("comentarios").innerHTML += `
         <div class="container shadow p-3 mb-5 bg-body rounded">
-                    <div>
-                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
-                        <p>${textArea.value}</p>
-                    </div>
-                </div> 
+            <div>
+                <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                <p>${textArea.value}</p>
+            </div>
+        </div> 
         `;
-    }else if(select.value == "3") {
+    } else if (select.value == "3") {
         document.getElementById("comentarios").innerHTML += `
         <div class="container shadow p-3 mb-5 bg-body rounded">
-                    <div>
-                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
-                        <p>${textArea.value}</p>
-                    </div>
-                </div> 
+            <div>
+                <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                <p>${textArea.value}</p>
+            </div>
+        </div> 
         `;
-    }else if(select.value == "4") {
+    } else if (select.value == "4") {
         document.getElementById("comentarios").innerHTML += `
         <div class="container shadow p-3 mb-5 bg-body rounded">
-                    <div>
-                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>
-                        <p>${textArea.value}</p>
-                    </div>
-                </div> 
+            <div>
+                <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+                <p>${textArea.value}</p>
+            </div>
+        </div> 
         `;
     }
-    else if(select.value == "5") {
+    else if (select.value == "5") {
         document.getElementById("comentarios").innerHTML += `
         <div class="container shadow p-3 mb-5 bg-body rounded">
-                    <div>
-                        <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
-                        <p>${textArea.value}</p>
-                    </div>
-                </div> 
+            <div>
+                <p><strong>${userEmail}</strong> - ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                <p>${textArea.value}</p>
+            </div>
+        </div> 
         `;
     }
 })
