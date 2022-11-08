@@ -15,8 +15,8 @@ document.getElementById("nav-item-id").innerHTML = `
     ${listaPrevia1}
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
-    <li><a class="dropdown-item" href="my-profile.html">Mi perfil </a></li>
+    <li><a class="dropdown-item mb-1" href="cart.html">Mi carrito</a></li>
+    <li><a class="dropdown-item" href="my-profile.html">Mi perfil </a></li><hr>
     <li><a class="dropdown-item" href="login.html">Cerrar sesión</a></li>
   </ul>
 </div>`;
