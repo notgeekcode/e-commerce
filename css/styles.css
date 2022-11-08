@@ -218,3 +218,11 @@ a.custom-card:hover {
   position: relative;
   right: 50%;
 }
+
+.fondoCeleste {
+  background-color: #53C0FB;
+}
+
+.imgC {
+  width: 700px;
+}

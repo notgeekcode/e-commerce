@@ -39,9 +39,40 @@ function showCategoriesList() {
     <div>
         <p class="text-center h3"><strong>Imágenes ilustrativas</strong></p><br>
     </div>
-    <div id="contenedor-imagen">
-    </div>`;
+    <br>
+    <div id="contenedor-carousel"></div>
+    <br>
+    <div id="contenedor-imagen"></div>`;
+
     document.getElementById("product-name").innerHTML = htmlContentToAppend;
+}
+
+function showCarousel() {
+    let dibujarCarousel = "";
+    dibujarCarousel = `<div id="carouselExampleControls" class="carousel slide imgC mx-auto shadow p-3 mb-5 bg-body rounded" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="${currentCategoriesArray.images[0]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
+        </div>
+        <div class="carousel-item">
+            <img src="${currentCategoriesArray.images[1]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
+        </div>
+        <div class="carousel-item">
+            <img src="${currentCategoriesArray.images[2]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
+        </div>
+        <div class="carousel-item">
+            <img src="${currentCategoriesArray.images[3]}" class="d-block w-100 img-fluid rounded" alt="${currentCategoriesArray.description}">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon fondoCeleste" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon fondoCeleste" aria-hidden="true"></span> 
+    </button>
+</div>`
+
+document.getElementById("contenedor-carousel").innerHTML = dibujarCarousel;
 }
 
 //function que itera sobre el array de images del JSON y las muestra en pantalla.
@@ -139,11 +170,14 @@ document.addEventListener("DOMContentLoaded", function () {
             showCategoriesList();
             showimgs();
             datosComentarios();
-            showRelatedImgs()
+            showRelatedImgs();
+            showCarousel();
+
         } else {
             alert("Algo salió mal: " + resultObj.data);
         }
     });
+    
 });
 
 document.getElementById("btnEnviar").addEventListener("click", function () {
