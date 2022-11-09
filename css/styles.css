@@ -226,3 +226,8 @@ a.custom-card:hover {
 .imgC {
   width: 700px;
 }
+
+.moveLeft {
+  margin-left: 100px;
+  margin-top: 5px;
+}

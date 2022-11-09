@@ -18,11 +18,12 @@ let currentComments = [];
 function showCategoriesList() {
     let htmlContentToAppend = "";
     htmlContentToAppend = `
-    <div>
+    <div class="container">
         <h1 class="text-center"><br>
             ${currentCategoriesArray.name}
             <br><br><hr>
-        <h1>
+        </h1>
+        <button id="btnComprar" class="btn btn-success position-absolute top-25 start-25 moveLeft" type="submit">Comprar</button>
     </div>
     <div>
         <p><strong>Precio</strong><br>  ${currentCategoriesArray.currency} ${currentCategoriesArray.cost}</p>
