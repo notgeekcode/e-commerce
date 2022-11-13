@@ -4,7 +4,7 @@ let select = document.getElementById("select");
 let userEmailLocalStorage = localStorage.getItem("userEmail");
 let userEmail = userEmailLocalStorage.substring(1, (userEmailLocalStorage.length - 1));
 
-let currentCategoriesArray = []; //asignamos un array vacio.
+let currentCategoriesArray = []; 
 let getDatos = JSON.parse(localStorage.getItem("catID1") ?? []); //seteo con diferente key //
 JSON.stringify(getDatos);
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
@@ -13,6 +13,8 @@ let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json
 let setComments = `https://japceibal.github.io/emercado-api/products_comments/${getDatos}.json`
 let currentComments = [];
 
+let new_data = {};
+let old_data = [];
 
 //funcion que dibuja en pantalla diferentes atributos del array currentCategoriesArray.
 function showCategoriesList() {
@@ -23,7 +25,7 @@ function showCategoriesList() {
             ${currentCategoriesArray.name}
             <br><br><hr>
         </h1>
-        <button id="btnComprar" class="btn btn-success position-absolute top-25 start-25 moveLeft" type="submit">Comprar</button>
+        <button id="btnComprar" onclick="save();" class="btn btn-success position-absolute top-25 start-25 moveLeft" type="submit">Comprar</button>
     </div>
     <div>
         <p><strong>Precio</strong><br>  ${currentCategoriesArray.currency} ${currentCategoriesArray.cost}</p>
@@ -172,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showimgs();
             datosComentarios();
             showRelatedImgs();
-            showCarousel();
+            showCarousel(); 
 
         } else {
             alert("Algo salió mal: " + resultObj.data);
@@ -232,3 +234,24 @@ document.getElementById("btnEnviar").addEventListener("click", function () {
     }
 })
 
+
+function save() {
+    
+    new_data = {
+        name : currentCategoriesArray.name,
+        image : currentCategoriesArray.images[0],
+        unitCost : currentCategoriesArray.cost,
+        currency : currentCategoriesArray.currency
+    }
+
+    if(localStorage.getItem("data") == null) {
+        localStorage.setItem("data", "[]");
+    }
+
+    old_data = JSON.parse(localStorage.getItem("data"));
+    old_data.push(new_data);
+
+    localStorage.setItem("data", JSON.stringify(old_data));
+
+    window.location = "cart.html";
+}

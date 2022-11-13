@@ -6,8 +6,10 @@ let numeroCuentaID;
 let inputNroTarjeta;
 let inputCodSeguridad;
 let inputIDvencimiento;
-
+let arrP = [];
 function dibujarProducto() {
+    arrP = JSON.parse(localStorage.getItem("data"));
+
     htmlContentToAppend = `
     <div class="container">
     <form action="#" id="form" method="get" class="row mt-4  form-control" novalidate>
@@ -37,31 +39,38 @@ function dibujarProducto() {
                 <strong>Subtotal</strong>
             </div>
         </div>
-    </div> 
+    </div>`
 
-    <div class="container text-center">
+    document.getElementById("productCart").innerHTML = htmlContentToAppend;
+
+    for(let i = 0; i < arrP.length; i++) {
+        htmlContentToAppend += `<div class="container text-center">
         <div class="row">
             <div class="col">
             <hr>
-                <img src="${productoObj.articles[0].image}" alt="${productoObj.articles[0].name}" id="miniatura" class="img-fluid float-start ms-4">            
+                <img src="${arrP[i].image}" alt="${arrP[i].name}" id="miniatura" class="img-fluid float-start ms-4">            
             </div>
              <div class="col">
-                 <hr><br>${productoObj.articles[0].name}
+                 <hr><br>${arrP[i].name}
              </div>
             <div class="col">
-                <hr><br>${productoObj.articles[0].currency} ${productoObj.articles[0].unitCost}        
+                <hr><br>${arrP[i].currency} ${arrP[i].unitCost}        
             </div>
             <div class="col">
                 <hr><br><input id="cartInputValue" class="form-control" type="number" value=${inputCartValue} required>              
             </div>
             <div class="col">
-                <hr><br><strong>${productoObj.articles[0].currency}</strong> <strong>${(productoObj.articles[0].unitCost * inputCartValue)}</strong>
+                <hr><br><strong>${arrP[i].currency}</strong> <strong>${(arrP[i].unitCost * inputCartValue)}</strong>
             </div>
         </div>    
         <hr>
     </div>
-    
-    <div class="container mt-5">
+    `}
+    document.getElementById("productCart").innerHTML = htmlContentToAppend;
+
+    for(let i = 0; i < arrP.length; i++) { 
+
+    htmlContentToAppend += `<div class="container mt-5">
         <div class="container">
         <h4>Tipo de envío</h4>
         <div class="form-check mt-4 mt-3">
@@ -105,25 +114,31 @@ function dibujarProducto() {
             </div>
             <br>
             <hr>
+            
             <div class="container mt-4">
                 <h4>Costos</h4>
                 <ul class="list-group mt-3" id="listaCostos">
                 
                     <li class="list-group-item">
                         <strong>Subtotal</strong>
-                            <p>Costo unitario del producto por unidad <p class="text-end">${productoObj.articles[0].currency} ${(productoObj.articles[0].unitCost * inputCartValue)}</p></p>
+                            <p>Costo unitario del producto por unidad <p class="text-end">${arrP[0].currency} ${(arrP[i].unitCost * inputCartValue)}</p></p>
                     </li>
                 
                     <li class="list-group-item">
                         <strong>Costo de envío</strong>
-                            <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15))}</p></p>
+                            <p>Según el tipo de envío <p class="text-end">${arrP[0].currency} ${((arrP[i].unitCost * inputCartValue) * (0.15))}</p></p>
                     </li>
                 
                     <li class="list-group-item mt"><strong>Total ($)</strong>
-                        <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+                        <p class="text-end"><strong>${arrP[0].currency} ${((arrP[i].unitCost * inputCartValue) * (0.15) + (arrP[i].unitCost * inputCartValue))}</strong></p>
                     </li>
                 </ul>
-                <br></div><hr>
+                <br></div>`
+                }
+                document.getElementById("productCart").innerHTML = htmlContentToAppend;
+                
+                htmlContentToAppend += `
+                <hr>
                 <div class="container mt-4">
                     <h4>Forma de pago</h4>
                     <p class="mt-4" id="validarMetodoDePago">No ha seleccionado</p>
@@ -284,6 +299,7 @@ function productoPreCargadoObj(){
 
 document.addEventListener("DOMContentLoaded", function() {
     productoPreCargadoObj();
+
 });
 
 //funcion dentro del modal.
@@ -358,24 +374,25 @@ function closeAlertSuccesBuy() {
 //Tipo de envio: 15%
 function quincePorciento() {
     document.getElementById("exampleRadios1").addEventListener("click", function() {
+        for(let i = 0; i < arrP.length; i++) {
         document.getElementById("listaCostos").innerHTML = `
         <ul class="list-group" checked>
                 
             <li class="list-group-item">
                 <strong>Subtotal</strong>
-                    <p>Costo unitario del producto por unidad <p class="text-end">${productoObj.articles[0].currency} ${(productoObj.articles[0].unitCost * inputCartValue)}</p></p>
+                    <p>Costo unitario del producto por unidad <p class="text-end">${arrP[i].currency} ${(arrP[i].unitCost * inputCartValue)}</p></p>
             </li>
                 
             <li class="list-group-item">
                 <strong>Costo de envío</strong>
-                    <p>Según el tipo de envío <p class="text-end">${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15))}</p></p>
+                    <p>Según el tipo de envío <p class="text-end">${arrP[i].currency} ${((arrP[i].unitCost * inputCartValue) * (0.15))}</p></p>
             </li>
                 
             <li class="list-group-item mt"><strong>Total ($)</strong>
-                <p class="text-end"><strong>${productoObj.articles[0].currency} ${((productoObj.articles[0].unitCost * inputCartValue) * (0.15) + (productoObj.articles[0].unitCost * inputCartValue))}</strong></p>
+                <p class="text-end"><strong>${arrP[i].currency} ${((arrP[i].unitCost * inputCartValue) * (0.15) + (arrP[i].unitCost * inputCartValue))}</strong></p>
             </li>
         </ul>
-        `
+        `}
     })
 }
 
@@ -427,6 +444,12 @@ function cincoPorciento() {
         })
 }
 
+/* function view() {
+
+    if(localStorage.getItem("data") != null) {
+       htmlContentToAppend.innerHTML = `asd`
+    }
+} */
 
 /* AYUDAMEMORIA
     checkValidity() devuelve true o false.
