@@ -7,12 +7,16 @@ let userEmail = userEmailLocalStorage.substring(1, (userEmailLocalStorage.length
 let currentCategoriesArray = []; 
 let getDatos = JSON.parse(localStorage.getItem("catID1") ?? []); //seteo con diferente key //
 JSON.stringify(getDatos);
+
+//Servidor web
 let setCat = `https://japceibal.github.io/emercado-api/products/${getDatos}.json`;
-
-//se le asigna a setComents la url del JSON consultado. En este caso los comentarios de los productos
 let setComments = `https://japceibal.github.io/emercado-api/products_comments/${getDatos}.json`
-let currentComments = [];
 
+//Servidor local
+/* let setCat = `http://localhost:3000/productos-info/${getDatos}.json`;
+let setComments = `http://localhost:3000/products_comments/${getDatos}.json` */
+
+let currentComments = [];
 let new_data = {};
 let old_data = [];
 

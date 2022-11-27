@@ -231,3 +231,13 @@ a.custom-card:hover {
   margin-left: 100px;
   margin-top: 5px;
 }
+
+.colorRojo {
+  color: red;
+}
+
+.alertaCompra {
+  margin-left: 69%;
+  margin-top: -18px;
+  
+}

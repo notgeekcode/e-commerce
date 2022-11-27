@@ -88,6 +88,11 @@ function sortAndShowCategories(sortCriteria, categoriesArray){ //ordenamos segun
 let getDatos = JSON.parse(localStorage.getItem("catID")??[]); //Asigno a la variable getDatos, el valor asociado
 // al key de nombre catID a traves del localStorage, y dicho valor lo convierto en un objeto de js.
 JSON.stringify(getDatos); //Ahora tranformo el contenido de getDatos en string
+
+//servidor local
+//let setCat = `http://localhost:3000/productos/${getDatos}.json`;
+
+//servidor web
 let setCat = `https://japceibal.github.io/emercado-api/cats_products/${getDatos}.json`;
 //por ultimo asigno a la variable setCat la direccion de los json a trabajar con la variable incluida de getDatos.
 //Función que se ejecuta una vez que se haya lanzado el evento de
